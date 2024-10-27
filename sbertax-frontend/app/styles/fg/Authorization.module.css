@@ -1,0 +1,139 @@
+/* Контейнер для всей страницы */
+.container {
+    display: flex;
+    /* Выравниваем элементы по вертикали */
+    flex-direction: column;
+    /* Строим элементы в колонку */
+    align-items: center;
+    /* Выравниваем элементы по центру по горизонтали */
+    justify-content: center;
+    /* Центрируем элементы по вертикали */
+    height: 100vh;
+    /* Высота экрана, чтобы элементы были по центру */
+    background-color: #f5f5f5;
+    /* Светло-серый фон для страницы */
+}
+
+/* Стиль заголовка SberTax */
+.title {
+    font-size: 36px;
+    /* Размер текста */
+    color: #21a038;
+    /* Цвет заголовка в стиле Сбербанка */
+    margin-bottom: 20px;
+    /* Отступ снизу */
+}
+
+/* Серый круг для картинки */
+.circle {
+    width: 100px;
+    /* Ширина круга */
+    height: 100px;
+    /* Высота круга */
+    background-color: #767676;
+    /* Серый фон */
+    border-radius: 50%;
+    /* Скругляем, чтобы получился круг */
+    margin-bottom: 20px;
+    /* Отступ снизу */
+    justify-content: center;
+    /* Центрируем изображение по горизонтали */
+    align-items: center;
+    /* Центрируем изображение по вертикали */
+}
+
+/* Стиль подзаголовка "Выберите способ входа" */
+.subtitle {
+    font-size: 18px;
+    /* Размер текста */
+    color: #000;
+    /* Черный цвет текста */
+    margin-bottom: 20px;
+    /* Отступ снизу */
+}
+
+/* Общий стиль для кнопок */
+.button {
+    background-color: #21a038;
+    /* Зеленый цвет заливки кнопки */
+    border: none;
+    /* Серая рамка вокруг кнопки */
+    color: white;
+    /* Белый текст */
+    padding: 10px 20px;
+    /* Внутренние отступы для кнопки (пространство внутри) */
+    border-radius: 8px;
+    /* Скругляем углы кнопки */
+    margin: 10px;
+    /* Отступы вокруг кнопки */
+    cursor: pointer;
+    /* Указатель курсора при наведении */
+    transition: transform 0.3s ease;
+    /* Плавная анимация увеличения при наведении */
+}
+
+/* Анимация кнопки при наведении */
+.button:hover {
+    transform: scale(1.05);
+    /* Увеличение кнопки на 5% */
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column; /* Кнопки в столбик */
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px; /* Ограничиваем ширину кнопок */
+  }
+
+/* Стиль для полей ввода (номер телефона, код) */
+.input {
+    padding: 10px;
+    /* Внутренние отступы внутри поля */
+    margin: 10px 0;
+    /* Отступы сверху и снизу */
+    border: 1px solid #767676;
+    /* Серая рамка */
+    border-radius: 4px;
+    /* Скругляем углы */
+}
+
+/* Контейнер для чекбокса и надписи соглашения */
+.checkboxContainer {
+    display: flex;
+    /* Выравниваем элементы в строку (чекбокс и текст) */
+    align-items: center;
+    /* Выравниваем по центру по вертикали */
+    margin-top: 20px;
+    /* Отступ сверху */
+}
+
+/* Чекбокс с отступом справа */
+.checkboxContainer input {
+    margin-right: 10px;
+    /* Отступ справа от чекбокса */
+}
+
+.label {
+    color: rgb(90, 90, 90);
+}
+
+.phoneButtonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userInfoContainer {
+    display: flex;
+    color: #000;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; /* Отступ снизу */
+  }
+  
+  .logo {
+    border-radius: 50%; /* Круглая форма логотипа */
+    margin-bottom: 10px; /* Отступ снизу */
+  }
