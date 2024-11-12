@@ -1,8 +1,8 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from backend.app.core.postgres.database import SessionLocal, Transaction
+from backend.app.core.postgres.database import SessionLocal, Transaction, Log, Document
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 app = FastAPI()
 
@@ -19,6 +19,45 @@ class TransactionCreate(BaseModel):
     amount: float
     category: str
     mcc_code: str
+
+
+# Модель для создания документа
+class DocumentCreate(BaseModel):
+    document_type: str
+    filename: str
+    upload_date: str  # Дата в строковом формате
+    file_data: bytes
+    status: str
+    transaction_id: int
+
+# Получение всех документов
+@app.get("/documents/", response_model=List[DocumentCreate])
+async def get_documents(db: Session = Depends(get_db)):
+    documents = db.query(Document).all()
+    return documents
+
+# Создание логов
+class LogCreate(BaseModel):
+    timestamp: str  # Дата в строковом формате
+    service_name: str
+    log_level: str
+    message: str
+    user_id: int
+    document_id: Optional[int] = None
+
+@app.post("/logs/", response_model=LogCreate)
+async def create_log(log: LogCreate, db: Session = Depends(get_db)):
+    new_log = Log(**log.dict())
+    db.add(new_log)
+    db.commit()
+    db.refresh(new_log)
+    return new_log
+
+# Получение всех логов
+@app.get("/logs/", response_model=List[LogCreate])
+async def get_logs(db: Session = Depends(get_db)):
+    logs = db.query(Log).all()
+    return logs
 
 class DocumentRequest(BaseModel):
     transaction_id: int
