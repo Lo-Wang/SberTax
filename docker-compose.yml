@@ -21,13 +21,5 @@ services:
     environment:
       DATABASE_URL: postgres://yourusername:yourpassword@db:5432/yourdbname
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - "80:80"
-
 volumes:
   postgres_data:

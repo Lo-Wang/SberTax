@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from backend.app.core.postgres.database import SessionLocal, Transaction, Log, Document
+from app.core.postgres.database import SessionLocal, Transaction, Log, Document
 from pydantic import BaseModel
 from typing import List, Optional
 

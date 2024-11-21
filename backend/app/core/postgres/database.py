@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 import uuid
 
-DATABASE_URL = "postgresql://username:password@localhost/dbname"
+DATABASE_URL = "postgresql://yourusername:yourpassword@db/yourdbname"
 
 # Создание SQLAlchemy базы данных
 engine = create_engine(DATABASE_URL)
