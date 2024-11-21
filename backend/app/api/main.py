@@ -3,8 +3,12 @@ from sqlalchemy.orm import Session
 from backend.app.core.postgres.database import SessionLocal, Transaction
 from pydantic import BaseModel
 from typing import List
+from Authtorization.main import add_auth_routes
 
 app = FastAPI()
+
+# Добавляем маршруты авторизации
+add_auth_routes(app)
 
 # Dependency для получения сессии
 def get_db():
