@@ -1,0 +1,10 @@
+.idea/
+*.iml
+
+venv/
+.venv/
+env/
+
+__pycache__/
+*.pyc
+*.pyo
