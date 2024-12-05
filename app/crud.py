@@ -98,16 +98,35 @@ async def get_user_by_username(session: AsyncSession, username: str):
     result = await session.execute(select(User).where(User.username == username))
     return result.scalar_one_or_none()
 
-async def create_user(session: AsyncSession, user: UserCreate):
-    hashed_password = hash_password(user.password)  # Хэшируем пароль
+async def create_user(session: AsyncSession, user: UserCreate) -> User:
+    # Проверяем, существует ли уже пользователь с таким именем или email
+    existing_user = await session.execute(
+        select(User).where(User.username == user.username)
+    )
+    if existing_user.scalars().first():
+        raise HTTPException(status_code=400, detail="Пользователь с таким именем уже существует.")
+
+    existing_email = await session.execute(
+        select(User).where(User.email == user.email)
+    )
+    if existing_email.scalars().first():
+        raise HTTPException(status_code=400, detail="Пользователь с таким email уже существует.")
+
+    # Хэшируем пароль
+    hashed_password = hash_password(user.password)
+
+    # Создаем нового пользователя с хешированным паролем
     new_user = User(
         username=user.username,
         email=user.email,
-        password=hashed_password,  # Сохраняем хэшированный пароль
+        password=hashed_password,  # Сохраняем хешированный пароль
     )
+
+    # Добавляем нового пользователя в сессию и сохраняем в базе данных
     session.add(new_user)
     await session.commit()
     await session.refresh(new_user)
+
     return new_user
 
 async def update_user(session: AsyncSession, user_id: int, user_update: UserUpdate):
