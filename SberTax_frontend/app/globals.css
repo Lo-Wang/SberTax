@@ -59,7 +59,7 @@ html, body {
 
 /* Кнопка общего стиля */
 .button {
-  width: 100%; /* Кнопка растягивается на всю ширину контейнера */
+  width: 300px; /* Кнопка растягивается на всю ширину контейнера */
   background-color: #21a038;
   color: #ffffff;
   border: none;
@@ -80,7 +80,7 @@ html, body {
 
 /* Белая кнопка */
 .button_white {
-  width: 100%; /* Кнопка растягивается на всю ширину контейнера */
+  width: 300px; /* Кнопка растягивается на всю ширину контейнера */
   background-color: #ffffff;
   color: #21a038;
   border: 2px solid #21a038;
@@ -101,7 +101,7 @@ html, body {
 
 /* Кнопка назад  */
 .button_back {
-  width: 100%; /* Кнопка растягивается на всю ширину контейнера */
+  width: 300px; /* Кнопка растягивается на всю ширину контейнера */
   background-color: #ffffff;
   color: #21a038;
   border: 2px solid #21a038;

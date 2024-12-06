@@ -60,7 +60,7 @@ export default function ApplicationDetailsPage({ params }) {
   };
 
   const handleEditClick = () => {
-    router.push(`/pages/application/edit/${id}`);
+    router.push(`/pages/application/edit-application/${id}`);
   };
 
   if (!application) {

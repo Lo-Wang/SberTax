@@ -1,25 +1,21 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import styles from './uploadFileButton.module.css';
 
 export default function UploadFileButton({ label, onFileUpload }) {
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
-  const [uploadedFileName, setUploadedFileName] = useState('');
-  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [fileName, setFileName] = useState(label || 'Загрузите файл');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const MAX_FILE_SIZE_MB = 10; // Максимальный размер файла в МБ
-  const VALID_EXTENSIONS = ['pdf', 'png', 'jpg', 'jpeg']; // Допустимые форматы
-  const MAX_FILENAME_LENGTH = 20; // Максимальная длина имени файла для отображения
+  const MAX_FILE_SIZE_MB = 10;
+  const VALID_EXTENSIONS = ['pdf', 'png', 'jpg', 'jpeg'];
+  const MAX_FILE_NAME_LENGTH = 20; // Максимальная длина имени файла
 
   const truncateFileName = (name) => {
-    if (name.length > MAX_FILENAME_LENGTH) {
-      const extIndex = name.lastIndexOf('.'); // Найти точку перед расширением
-      const extension = name.slice(extIndex); // Получить расширение файла
-      const truncated = name.slice(0, MAX_FILENAME_LENGTH - extension.length - 3); // Обрезать имя файла
-      return `${truncated}...${extension}`; // Вернуть сокращённое имя
+    if (name.length > MAX_FILE_NAME_LENGTH) {
+      return `${name.substring(0, MAX_FILE_NAME_LENGTH)}...`;
     }
     return name;
   };
@@ -34,14 +30,11 @@ export default function UploadFileButton({ label, onFileUpload }) {
     if (!file) return;
 
     const fileExtension = file.name.split('.').pop().toLowerCase();
-
-    // Проверка формата
     if (!VALID_EXTENSIONS.includes(fileExtension)) {
       setErrorMessage('Ошибка: допустимые форматы - PDF, PNG, JPG, JPEG.');
       return;
     }
 
-    // Проверка размера
     if (file.size / 1024 / 1024 > MAX_FILE_SIZE_MB) {
       setErrorMessage(`Ошибка: файл не должен превышать ${MAX_FILE_SIZE_MB} МБ.`);
       return;
@@ -50,13 +43,18 @@ export default function UploadFileButton({ label, onFileUpload }) {
     setUploading(true);
     setErrorMessage('');
 
-    // Имитируем успешную загрузку
     setTimeout(() => {
-      setUploading(false);
-      setUploadedFileName(file.name);
+      setFileName(truncateFileName(file.name));
       onFileUpload(file);
+      setUploading(false);
     }, 1000);
   };
+
+  useEffect(() => {
+    if (label) {
+      setFileName(truncateFileName(label)); // Устанавливаем имя файла из переданных данных
+    }
+  }, [label]);
 
   return (
     <div className={styles.uploadContainer}>
@@ -68,21 +66,15 @@ export default function UploadFileButton({ label, onFileUpload }) {
         style={{ display: 'none' }}
         id="file-upload"
       />
-      <label className={`${styles.fileUploadLabel} ${uploading ? styles.uploading : ''}`}>
-        <button
-          className={`button_file ${uploadedFileName ? 'button_file_white' : 'button_file'}`}
-          onClick={handleButtonClick}
-          disabled={uploading}
-        >
-          {uploading
-            ? 'Загрузка...'
-            : uploadedFileName
-              ? truncateFileName(uploadedFileName)
-              : label}
-        </button>
-      </label>
+      <button
+        className={`button_file`}
+        onClick={handleButtonClick}
+        disabled={uploading}
+      >
+        {uploading ? 'Загрузка...' : fileName}
+      </button>
       <p className={styles.fileTypesInfo}>
-        Файлы: PDF, PNG, JPG, JPEG до 10 МБ.
+        Допустимые форматы: PDF, PNG, JPG, JPEG до 10 МБ.
       </p>
       {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
     </div>

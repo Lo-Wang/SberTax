@@ -84,8 +84,25 @@
     "mccCode": "5678",
     "description": "Стоматология \"Зуб\"",
     "files": {
-      "template": "Пропуск.pdf",
+      "template": "LLMAll_en-US_final_rc.pdf",
       "document1": "Leonardo_Kino_XL_A_white_british_shorthair_cat_wearing_futuris_3.jpg",
+      "document2": "",
+      "document3": ""
+    }
+  },
+  {
+    "id": 1733476002949,
+    "transactionId": 2,
+    "submissionDate": "2024-12-06T09:06:43.607Z",
+    "category": "Образование",
+    "amount": 20000,
+    "status": "Отправлено",
+    "transactionDate": "2024-11-29T12:15:00Z",
+    "mccCode": "5678",
+    "description": "Стоматология \"Зуб\"",
+    "files": {
+      "template": "LLMAll_en-US_final_rc.pdf",
+      "document1": "Пропуск.pdf",
       "document2": null,
       "document3": null
     }
