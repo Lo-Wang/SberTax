@@ -21,15 +21,15 @@ async def get_user_by_id(user_id: int):
         return user
 
 
-@router.post("/", summary="Создать нового пользователя", response_model=User)
-async def create_new_user(user: UserCreate):
-    async with async_session_maker() as session:  # Начинаем сессию
-        existing_user = await get_user_by_username(session, user.username)
-        if existing_user:
-            raise HTTPException(status_code=400, detail="Пользователь с таким именем уже существует")
-
-        new_user = await create_user(session, user)
-        return new_user
+# @router.post("/", summary="Создать нового пользователя", response_model=User)
+# async def create_new_user(user: UserCreate):
+#     async with async_session_maker() as session:  # Начинаем сессию
+#         existing_user = await get_user_by_username(session, user.username)
+#         if existing_user:
+#             raise HTTPException(status_code=400, detail="Пользователь с таким именем уже существует")
+#
+#         new_user = await create_user(session, user)
+#         return new_user
 
 
 @router.put("/{user_id}", summary="Обновить информацию о пользователе", response_model=User )
@@ -42,7 +42,7 @@ async def update_user_info(user_id: int, user_update: UserUpdate):
 
 @router.delete("/{user_id}", summary="Удалить пользователя")
 async def delete_user_by_id(user_id: int):
-    async with async_session_maker() as session:  # Начинаем сессию
+    async with async_session_maker() as session:
         deleted_user = await delete_user(session, user_id)
         if deleted_user is None:
             raise HTTPException(status_code=404, detail="Пользователь не найден")

@@ -31,7 +31,6 @@ async def create_access_token(data: dict):
     encoded_jwt = jwt.encode(to_encode, "SECRET_KEY", algorithm="HS256")  # Замените на ваш секретный ключ
     return encoded_jwt
 
-# Функция для получения текущего пользователя
 async def get_current_user(token: str = Depends(oauth2_scheme), session: AsyncSession = Depends(async_session_maker)):
     credentials_exception = HTTPException(
         status_code=401,
@@ -39,6 +38,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session: AsyncSe
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
+        # Декодируем токен
         payload = jwt.decode(token, "SECRET_KEY", algorithms=["HS256"])  # Замените на ваш секретный ключ
         username: str = payload.get("sub")
         if username is None:
@@ -47,6 +47,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), session: AsyncSe
     except jwt.PyJWTError:  # Обработка ошибок декодирования токена
         raise credentials_exception
 
+    # Получаем пользователя по имени
     user = await get_user_by_username(session, token_data.username)
     if user is None:
         raise credentials_exception

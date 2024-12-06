@@ -1,5 +1,6 @@
 from typing import List, Optional
 from fastapi import HTTPException
+from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.users.schemas import UserCreate, UserUpdate
@@ -12,6 +13,8 @@ from app.logs.models import Transaction as TransactionModel
 from app.logs.models import Document as DocumentModel
 from app.logs.models import User
 import bcrypt
+import logging
+logger = logging.getLogger(__name__)
 
 # CRUD операции для Transaction
 async def get_transaction(db: AsyncSession, transaction_id: int) -> Optional[Transaction]:
@@ -69,21 +72,30 @@ async def create_document(db: AsyncSession, document_create: DocumentCreate) -> 
     await db.refresh(document)  # Обновляем объект, чтобы получить сгенерированные поля (например, document_id)
     return document
 
-async def delete_document_by_id(db: AsyncSession, document_id: int) -> None:
+
+async def delete_document_and_related(db: AsyncSession, document_id: int) -> None:
+    # Получаем документ
     document = await get_document(db, document_id)
+
     if document:
+        # Удаляем все связанные записи в логах
+        await db.execute(
+            delete(LogModel).where(LogModel.document_id == document_id)  # Убедитесь, что LogModel - это модель
+        )
+
+        # Удаляем документ
         await db.delete(document)
-        await db.commit()  # Сохраняем изменения
+
+        # Удаляем связанные транзакции, если они существуют
+        if document.transaction_id:
+            transaction = await get_transaction(db, document.transaction_id)
+            if transaction:
+                await db.delete(transaction)
+
+        # Сохраняем изменения
+        await db.commit()
     else:
         raise HTTPException(status_code=404, detail="Документ не найден")
-
-async def delete_transaction(db: AsyncSession, transaction_id: int) -> None:
-    transaction = await get_transaction(db, transaction_id)
-    if transaction:
-        await db.delete(transaction)
-        await db.commit()  # Сохраняем изменения
-    else:
-        raise HTTPException(status_code=404, detail="Транзакция не найдена")
 
 # CRUD операции для USERS
 async def get_users(session: AsyncSession, skip: int = 0, limit: int = 10):
@@ -156,8 +168,10 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 async def delete_user(session: AsyncSession, user_id: int):
     user = await get_user(session, user_id)
     if user is None:
+        logger.error(f"Пользователь с ID {user_id} не найден.")
         return None
 
     await session.delete(user)
     await session.commit()
+    logger.info(f"Пользователь с ID {user_id} успешно удален.")
     return user

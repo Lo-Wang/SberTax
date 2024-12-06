@@ -3,8 +3,7 @@ from datetime import datetime
 from fastapi import APIRouter, HTTPException, File, UploadFile
 from starlette.responses import JSONResponse
 
-from app.crud import get_documents, get_document, create_document, create_transaction, \
-    delete_document_by_id, create_log
+from app.crud import get_documents, get_document, create_document, create_transaction, create_log, delete_document_and_related
 from app.database import async_session_maker
 from app.documents.schemas import DocumentCreate
 from app.logs.schemas import LogCreate
@@ -85,13 +84,6 @@ async def upload_document(
 @router.delete("/{document_id}", summary="Удалить документ по ID")
 async def delete_document(document_id: int):
     async with async_session_maker() as session:
-        # Получаем документ, чтобы проверить его существование
-        document = await get_document(session, document_id)
-
-        if document is None:
-            raise HTTPException(status_code=404, detail="Документ не найден")
-
-        # Удаляем документ
-        await delete_document_by_id(session, document_id)
-
-        #return JSONResponse(status_code=204)
+        # Удаляем документ и связанные записи
+        await delete_document_and_related(session, document_id)
+        return {"detail": "Документ и связанные записи успешно удалены"}

@@ -7,19 +7,21 @@ from app.users.schemas import User, UserCreate
 
 router = APIRouter(prefix="/auth", tags=["Авторизация"])
 
-@router.post("/register", summary="Регистрация нового пользователя", response_model=Token)
-async def register(user_create: UserCreate):
+
+
+@router.post("/", summary="Создать нового пользователя", response_model=Token)  # Измените response_model на Token
+async def create_new_user(user: UserCreate):
     async with async_session_maker() as session:  # Начинаем сессию
-        new_user = await create_user(session, user_create)  # Создаем пользователя
+        existing_user = await get_user_by_username(session, user.username)
+        if existing_user:
+            raise HTTPException(status_code=400, detail="Пользователь с таким именем уже существует")
 
-        # Аутентификация нового пользователя для получения токена
-        user = await authenticate_user(user_create.username, user_create.password, session)
-        if not user:
-            raise HTTPException(status_code=400, detail="Не удалось аутентифицировать пользователя после регистрации.")
+        new_user = await create_user(session, user)
 
-        # Создаем токен для нового пользователя
+        # Создаем токен доступа
         access_token = await create_access_token(data={"sub": new_user.username})
-        return Token(access_token=access_token, token_type="bearer")  # Возвращаем токен
+
+        return Token(access_token=access_token, token_type="bearer", user_id=new_user.user_id)
 
 @router.get("/login", summary="Меню входа")
 async def login_menu():
@@ -28,7 +30,7 @@ async def login_menu():
         "password": "Пароль"
     }
 
-@router.post("/token", summary="Вход", response_model=Token)
+@router.post("/login", summary="Вход", response_model=Token)
 async def login(username: str = Form(...), password: str = Form(...)):
     async with async_session_maker() as session:  # Начинаем сессию
         user = await authenticate_user(username, password, session)
@@ -37,8 +39,7 @@ async def login(username: str = Form(...), password: str = Form(...)):
             raise HTTPException(status_code=400, detail="Неверные учетные данные")
 
         access_token = await create_access_token(data={"sub": user.username})
-        return Token(access_token=access_token, token_type="bearer")  # Используем схему Token
-
+        return Token(access_token=access_token, token_type="bearer", user_id=user.user_id)  # Включаем user_id
 
 @router.get("/users/me", summary="Получить информацию о текущем пользователе", response_model=User)
 async def read_users_me(username: str):  # Принимаем имя пользователя как параметр
