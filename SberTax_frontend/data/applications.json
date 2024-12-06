@@ -1,23 +1,42 @@
 [
   {
-    "id": 1729840686507,
-    "transactionId": 1,
-    "fileName": "Untitled-1.png",
-    "status": "Отправлен",
-    "date": "2024-10-25T07:18:06.525Z"
+    "id": "120324",
+    "submissionDate": "2024-10-27",
+    "category": "Медицина",
+    "amount": 10000,
+    "status": "Принято",
+    "transactionDate": "2024-10-25",
+    "mccCode": "1234",
+    "description": "Стоматология \"Зуб\""
   },
   {
-    "id": 1729840723538,
-    "transactionId": 2,
-    "fileName": "skorost_do_1200.xlsx",
-    "status": "Отправлен",
-    "date": "2024-10-25T07:18:43.549Z"
+    "id": "120325",
+    "submissionDate": "2024-10-26",
+    "category": "Медицина",
+    "amount": 200,
+    "status": "Отклонено",
+    "transactionDate": "2024-10-24",
+    "mccCode": "5678",
+    "description": "Поликлиника \"Здоровье\""
   },
   {
-    "id": 1729848528392,
-    "transactionId": 1,
-    "fileName": "logo.png",
-    "status": "Отправлен",
-    "date": "2024-10-25T09:28:48.607Z"
+    "id": "120326",
+    "submissionDate": "2024-10-25",
+    "category": "Медицина",
+    "amount": 300,
+    "status": "Отправлено",
+    "transactionDate": "2024-10-23",
+    "mccCode": "9101",
+    "description": "Аптека \"Лекарь\""
+  },
+  {
+    "id": "120327",
+    "submissionDate": "2024-10-25",
+    "category": "Медицина",
+    "amount": 500,
+    "status": "Редактирование",
+    "transactionDate": "2024-10-22",
+    "mccCode": "4321",
+    "description": "Клиника \"Добрый доктор\""
   }
 ]

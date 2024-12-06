@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import ApplicationCard from '@/app/components/applicationCard';
+import './styles.css';
 
 export default function StatusPage() {
   const [applications, setApplications] = useState([]);
@@ -9,12 +11,16 @@ export default function StatusPage() {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await fetch('/api/getApplications'); // Предполагаем, что есть API для получения заявок
+        const response = await fetch('/api/getApplications');
         if (!response.ok) {
           throw new Error('Ошибка при получении заявок');
         }
         const data = await response.json();
-        setApplications(data);
+
+        const sortedApplications = data.sort(
+          (a, b) => new Date(b.submissionDate) - new Date(a.submissionDate)
+        );
+        setApplications(sortedApplications);
       } catch (error) {
         console.error(error);
       }
@@ -25,24 +31,20 @@ export default function StatusPage() {
 
   return (
     <div className="container">
-      <h1 className="title">Статус Заявки</h1>
-      <div className="scrollArea">
+      <h1 className="title">Статусы заявок</h1>
+      <div className="scrollAreaStatus">
         {applications.length > 0 ? (
-          applications.map((app, index) => (
-            <div key={index} className="applicationCard">
-              <p><strong>ID Заявки:</strong> {app.id}</p>
-              <p><strong>Статус:</strong> {app.status}</p>
-              <p><strong>Имя файла:</strong> {app.fileName}</p>
-              <p>Дата: {new Date(app.date).toLocaleString()}</p>
-            </div>
-          ))
+          applications.map((app) => <ApplicationCard key={app.id} application={app} />)
         ) : (
           <p>Нет поданных заявок.</p>
         )}
       </div>
-      <Link href="/pages/dashboard">
-        <button className="button_withe">Назад</button>
-      </Link>
+      <div className="button-container">
+        <Link href="/pages/dashboard">
+          <button className="button_back">Назад</button>
+        </Link>
+      </div>
     </div>
   );
 }
+

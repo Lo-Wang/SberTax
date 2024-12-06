@@ -1,23 +1,25 @@
 'use client';
 
-// Импортируем компонент для работы с изображениями
 import Image from 'next/image';
-import logo from '../img/logo.png';
+import styles from './userInfo.module.css'; // Подключаем стили
+import ProgressBar from './progressBar';
 
 export default function UserInfo() {
-    // Пример данных пользователя (заменить на реальные данные)
     const userData = {
         lastName: 'Иванов',
         firstName: 'Иван',
         logo: '/img/logo.png',
+        coins: 12000,
+        maxCoins: 15600,
     };
 
     return (
-        <div className="userInfoContainer">
-            <div className="circle">
+        <div className={styles.userInfoContainer}>
+            <div className={styles.circle}>
                 <Image src={userData.logo} alt="logo" width={100} height={100} />
             </div>
-            <h2>{`${userData.lastName} ${userData.firstName}`}</h2>
+            <h2 className={styles.userName}>{`${userData.firstName}`}</h2>
+            <ProgressBar coins={userData.coins} maxCoins={userData.maxCoins} />
         </div>
     );
 }

@@ -1,20 +1,26 @@
 [
-    {
-      "id": 1,
-      "amount": 10000.0,
-      "category": "Medical",
-      "mcc_code": "1234"
-    },
-    {
-      "id": 2,
-      "amount": 200.0,
-      "category": "Groceries",
-      "mcc_code": "5678"
-    },
-    {
-      "id": 3,
-      "amount": 300.0,
-      "category": "Transportation",
-      "mcc_code": "9101"
-    }
-  ]
+  {
+    "id": 1,
+    "amount": 10000.0,
+    "category": "Медицина",
+    "mcc_code": "1234",
+    "date": "2024-11-30T10:30:00Z",
+    "description": "Стоматология \"Зуб\""
+  },
+  {
+    "id": 2,
+    "amount": 20000.0,
+    "category": "Образование",
+    "mcc_code": "5678",
+    "date": "2024-11-29T12:15:00Z",
+    "description": "Стоматология \"Зуб\""
+  },
+  {
+    "id": 3,
+    "amount": 300.0,
+    "category": "Транспорт",
+    "mcc_code": "9101",
+    "date": "2024-11-28T08:45:00Z",
+    "description": "Стоматология \"Зуб\""
+  }
+]

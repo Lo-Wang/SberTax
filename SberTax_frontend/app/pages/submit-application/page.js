@@ -1,52 +1,48 @@
 'use client';
 
 import { useState } from 'react';
-import TransactionList from '@/app/components/transactionList'; // Компонент для отображения транзакций
-import DownloadTemplateButton from '@/app/components/downloadTemplateButton'; // Кнопка для скачивания шаблона
-import UploadImageButton from '@/app/components/uploadImageButton'; // Кнопка для загрузки изображения
-import ContinueButton from '@/app/components/continueButton'; // Кнопка "Продолжить"
-import { useRouter } from 'next/navigation'; // Импортируем useRouter для навигации
+import TransactionList from '@/app/components/transactionList';
+import DownloadTemplateButton from '@/app/components/downloadTemplateButton';
+import UploadFileButton from '@/app/components/uploadFileButton';
+import ContinueButton from '@/app/components/continueButton';
+import { useRouter } from 'next/navigation';
+import './styles.css';
 
 export default function ApplicationSubmission() {
-    const router = useRouter(); // Создаем экземпляр роутера
-    const [selectedFile, setSelectedFile] = useState(null); // Состояние для загруженного файла
-    const [selectedTransactionId, setSelectedTransactionId] = useState(null);
+    const router = useRouter();
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [fileName, setFileName] = useState('');
+    const [selectedTransaction, setSelectedTransaction] = useState(null);
 
-    // Функция для обработки загруженного файла
     const handleFileUpload = (file) => {
         setSelectedFile(file);
+        setFileName(file.name);
     };
 
     const handleBackClick = () => {
         router.push('/pages/dashboard');
     };
 
-    const handleTransactionSelect = (transactionId) => {
-        console.log("Выбрана транзакция с ID:", transactionId);
-        setSelectedTransactionId(transactionId);
+    const handleTransactionSelect = (transaction) => {
+        console.log('Выбрана транзакция:', transaction);
+        setSelectedTransaction(transaction);
     };
 
     return (
         <div className="container">
-            <h2>Подача заявления</h2>
-            <div className="buttonContainer">
-                {/* Компонент для отображения транзакций */}
-                <TransactionList onSelectTransaction={handleTransactionSelect} selectedTransactionId={selectedTransactionId} />
-
-                {/* Кнопка для скачивания шаблона */}
+            <h1 className="title">Выберите транзакцию</h1>
+            <TransactionList onSelectTransaction={handleTransactionSelect} />
+            <div className="button-container">
                 <DownloadTemplateButton />
-
-                {/* Кнопка для загрузки изображения */}
-                <UploadImageButton onFileUpload={handleFileUpload} />
-
-                {/* Кнопка "Продолжить" */}
-                <ContinueButton selectedTransactionId={selectedTransactionId} fileName={selectedFile?.name} />
-
-                <button className="button_withe" onClick={handleBackClick}>
+                <UploadFileButton onFileUpload={handleFileUpload} />
+                <ContinueButton
+                    selectedTransaction={selectedTransaction}
+                    fileName={fileName}
+                />
+                <button className="button_back" onClick={handleBackClick}>
                     <strong>Назад</strong>
                 </button>
             </div>
-
         </div>
     );
 }

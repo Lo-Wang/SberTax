@@ -1,47 +1,48 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import styles from './transactionList.module.css';
 
 export default function TransactionList({ onSelectTransaction }) {
     const [transactions, setTransactions] = useState([]);
-    const [selectedTransactionId, setSelectedTransactionId] = useState(null); // Состояние для выбранной транзакции
+    const [selectedTransaction, setSelectedTransaction] = useState(null);
 
     useEffect(() => {
-        // Загрузка данных из file.json
         fetch('/transactions/file.json')
             .then((response) => response.json())
             .then((data) => setTransactions(data))
             .catch((error) => console.error('Ошибка загрузки транзакций:', error));
     }, []);
 
-    const handleTransactionClick = (transactionId) => {
-        setSelectedTransactionId(transactionId); // Обновляем состояние выбранной транзакции
-        onSelectTransaction(transactionId); // Вызываем функцию для передачи выбранной транзакции
+    const handleTransactionClick = (transaction) => {
+        setSelectedTransaction(transaction);
+        onSelectTransaction(transaction); // Передаем весь объект транзакции
     };
 
     return (
-        <div className="transactionList">
-            <h2 className="titleTran">Доступные транзакции</h2>
-            <div className="scrollArea">
+        <div className={styles.transactionList}>
+            <div className={styles.scrollArea}>
                 {transactions.length > 0 ? (
                     transactions.map((transaction) => (
                         <div
                             key={transaction.id}
-                            className={`transactionCard ${selectedTransactionId === transaction.id ? 'selected' : ''}`} // Добавляем класс для выделенной транзакции
-                            onClick={() => handleTransactionClick(transaction.id)} // Обработчик клика
+                            className={`${styles.transactionCard} ${
+                                selectedTransaction?.id === transaction.id ? styles.selected : ''
+                            }`}
+                            onClick={() => handleTransactionClick(transaction)}
                         >
-                            <div className="transactionDetail">
-                                <strong>ID:</strong> {transaction.id}
+                            <p className={styles.transactionDate}>
+                                {new Date(transaction.date).toLocaleDateString('ru-RU', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                })}
+                            </p>
+                            <div className={styles.transactionDetails}>
+                                <span>{transaction.description}</span>
+                                <span>{transaction.amount.toLocaleString('ru-RU')}₽</span>
                             </div>
-                            <div className="transactionDetail">
-                                <strong>Сумма:</strong> {transaction.amount} руб.
-                            </div>
-                            <div className="transactionDetail">
-                                <strong>Категория:</strong> {transaction.category}
-                            </div>
-                            <div className="transactionDetail">
-                                <strong>MCC Code:</strong> {transaction.mcc_code}
-                            </div>
+                            <p className={styles.transactionCategory}>{transaction.category}</p>
                         </div>
                     ))
                 ) : (

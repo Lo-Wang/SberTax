@@ -8,8 +8,8 @@ export default function DownloadTemplateButton() {
   };
 
   return (
-    <button className="button_gr" onClick={handleDownload}>
-      Скачать шаблон
+    <button className="button" onClick={handleDownload}>
+      Шаблон заявления
     </button>
   );
 }

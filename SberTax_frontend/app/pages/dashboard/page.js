@@ -1,43 +1,43 @@
 'use client';
 
-import UserInfo from '@/app/components/userInfo'; // Импортируем компонент для информации пользователя
+import UserInfo from '@/app/components/userInfo'; // Компонент для информации пользователя
 import { useRouter } from 'next/navigation'; // Импортируем useRouter для навигации
+import './styles.css'; // Подключаем стили
 
 export default function Dashboard() {
   const router = useRouter(); // Создаем экземпляр роутера
 
   const handleStatusClick = () => {
-    router.push('/pages/status'); // Путь к странице статуса заявки
+    router.push('/pages/status'); // Переход к странице статуса заявки
   };
 
   const handleTransactionsClick = () => {
-    console.log('Подходящие транзакции');
-    router.push('/pages/submit-application'); // Путь к странице подачи заявки
+    router.push('/pages/transaction'); // Переход к странице подходящих транзакций
   };
 
   const handleSubmitApplicationClick = () => {
-    router.push('/pages/submit-application'); // Путь к странице подачи заявки
+    router.push('/pages/submit-application'); // Переход к странице подачи заявки
   };
 
   const handleBackClick = () => {
-    router.push('/'); // Путь к странице подачи заявки
+    router.push('/pages/authorization'); // Возврат к авторизации
   };
 
   return (
     <div className="container">
       <UserInfo />
-      <div className="buttonContainer">
-        <button className="button_gr" onClick={handleStatusClick}>
+      <div className="button-container">
+        <button className="button" onClick={handleStatusClick}>
           Статус заявки
         </button>
-        <button className="button_gr" onClick={handleTransactionsClick}>
+        <button className="button" onClick={handleTransactionsClick}>
           Подходящие транзакции
         </button>
-        <button className="button_gr" onClick={handleSubmitApplicationClick}>
+        <button className="button" onClick={handleSubmitApplicationClick}>
           Подать заявку
         </button>
-        <button className="button_withe" onClick={handleBackClick}>
-          <strong>Выход</strong>
+        <button className="button_back" onClick={handleBackClick}>
+          Выйти
         </button>
       </div>
     </div>

@@ -1,0 +1,89 @@
+/* Основной контейнер */
+.uploadContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+  max-width: 300px;
+}
+
+/* Кнопка для загрузки файла */
+.file-upload-label {
+  width: 100%;
+  /* Кнопка растягивается на всю ширину контейнера */
+  background-color: #21a038;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.file-upload-label:hover {
+  background-color: #1b7a2e;
+  transform: scale(1.05);
+}
+
+/* Успешная загрузка */
+.file-upload-label.success {
+  background-color: #ffffff;
+  /* Белая кнопка после успешной загрузки */
+  color: #21A038;
+  /* Зелёный текст */
+  border: 2px solid #21A038;
+  /* Зелёная граница */
+}
+
+/* Во время загрузки */
+.uploading {
+  background-color: #d3d3d3;
+  /* Серый фон для кнопки во время загрузки */
+  cursor: not-allowed;
+  /* Указатель меняется на запрещающий */
+  color: #fff;
+  /* Белый текст */
+}
+
+/* Линия загрузки */
+.loading-bar {
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #21A038 0%, #ffffff 100%);
+  background-size: 200% 100%;
+  animation: loading 2s infinite;
+  border-radius: 2px;
+  margin-top: 5px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* Информация о поддерживаемых типах файлов */
+.fileTypesInfo {
+  font-size: 10px; /* Размер текста */
+  color: #767676; /* Нейтральный серый цвет */
+  margin: 1px 0px -8px;/* Отступ сверху */
+  text-align: center; /* Центрирование текста */
+  line-height: 1.5; /* Высота строки для лучшей читаемости */
+}
+
+/* Сообщение об ошибке */
+.errorMessage {
+  color: red;
+  font-size: 10px;
+  margin-top: 10px;
+  margin: 5px 0px -8px;/* Отступ сверху */
+  text-align: center; /* Центрирование текста */
+  line-height: 1.5;
+}

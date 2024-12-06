@@ -1,332 +1,124 @@
-/* Контейнер для всей страницы */
+html, body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Контейнер страницы */
 .container {
   display: flex;
-  /* Выравниваем элементы по вертикали */
   flex-direction: column;
-  /* Строим элементы в колонку */
   align-items: center;
-  /* Выравниваем элементы по центру по горизонтали */
   justify-content: center;
-  /* Центрируем элементы по вертикали */
-  height: 100vh;
-  /* Высота экрана, чтобы элементы были по центру */
-  background-color: #f5f5f5;
-  /* Светло-серый фон для страницы */
-}
-
-/* Стиль заголовка SberTax */
-.title {
-  font-size: 36px;
-  /* Размер текста */
-  color: #21a038;
-  /* Цвет заголовка в стиле Сбербанка */
-  margin-bottom: 20px;
-  /* Отступ снизу */
-}
-
-/* Серый круг для картинки */
-.circle {
-  width: 100px;
-  /* Ширина круга */
-  height: 100px;
-  /* Высота круга */
-  background-color: #767676;
-  /* Серый фон */
-  border-radius: 50%;
-  /* Скругляем, чтобы получился круг */
-  margin-bottom: 20px;
-  /* Отступ снизу */
-  justify-content: center;
-  /* Центрируем изображение по горизонтали */
-  align-items: center;
-  /* Центрируем изображение по вертикали */
-}
-
-/* Стиль подзаголовка "Выберите способ входа" */
-.subtitle {
-  font-size: 18px;
-  /* Размер текста */
-  color: #000;
-  /* Черный цвет текста */
-  margin-bottom: 20px;
-  /* Отступ снизу */
+  height: 100vh; /* Высота экрана */
+  width: 100vw; /* Ширина экрана */
+  background-color: #ffffff; /* Фон страницы */
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Общий стиль для кнопок */
-.button_gr {
+/* .button-green {
   background-color: #21a038;
-  /* Зеленый цвет заливки кнопки */
   border: none;
-  /* Серая рамка вокруг кнопки */
   color: white;
-  /* Белый текст */
   font-size: 18px;
   padding: 10px 20px;
-  /* Внутренние отступы для кнопки (пространство внутри) */
   border-radius: 8px;
-  /* Скругляем углы кнопки */
   margin: 10px;
-  /* Отступы вокруг кнопки */
   cursor: pointer;
-  /* Указатель курсора при наведении */
   transition: transform 0.3s ease;
-  /* Плавная анимация увеличения при наведении */
-}
+} */
 
-.button_withe {
-  background-color: none;
-  /* Зеленый цвет заливки кнопки */
-  border: #767676;
-  /* Серая рамка вокруг кнопки */
-  color: #222;
-  /* Белый текст */
-  font-size: 18px;
-  padding: 10px 20px;
-  /* Внутренние отступы для кнопки (пространство внутри) */
-  border-radius: 8px;
-  /* Скругляем углы кнопки */
-  margin: 10px;
-  /* Отступы вокруг кнопки */
-  cursor: pointer;
-  /* Указатель курсора при наведении */
-  transition: transform 0.3s ease;
-  /* Плавная анимация увеличения при наведении */
-}
 
-.button_upload {
-  background-color: #21a038;
-  /* Зеленый цвет заливки кнопки */
-  border: none;
-  /* Серая рамка вокруг кнопки */
-  color: white;
-  /* Белый текст */
-  font-size: 18px;
-  padding: 10px 20px;
-  /* Внутренние отступы для кнопки (пространство внутри) */
-  border-radius: 8px;
-  /* Скругляем углы кнопки */
-  flex: 1;
-  /* Кнопка занимает оставшееся пространство */
-  margin: 10px;
-  /* Отступы вокруг кнопки */
-  cursor: pointer;
-  /* Указатель курсора при наведении */
-  transition: transform 0.3s ease;
-  /* Плавная анимация увеличения при наведении */
-}
-
-/* Анимация кнопки при наведении */
-button:hover {
-  transform: scale(1.05);
-  /* Увеличение кнопки на 5% */
-}
-
-.buttonContainer {
-  display: flex;
-  flex-direction: column;
-  /* Кнопки в столбик */
-  gap: 10px;
-  margin-top: 20px;
-  width: 100%;
-  max-width: 300px;
-  /* Ограничиваем ширину кнопок */
-}
-
-/* Стиль для полей ввода (номер телефона, код) */
-.input {
-  padding: 10px;
-  /* Внутренние отступы внутри поля */
-  margin: 10px 0;
-  /* Отступы сверху и снизу */
-  border: 1px solid #767676;
-  /* Серая рамка */
-  border-radius: 4px;
-  /* Скругляем углы */
-}
-
-/* Контейнер для чекбокса и надписи соглашения */
-.checkboxContainer {
-  display: flex;
-  /* Выравниваем элементы в строку (чекбокс и текст) */
-  align-items: center;
-  /* Выравниваем по центру по вертикали */
-  margin-top: 10px;
-  /* Отступ сверху */
-  justify-content: center;
-  /* Центрируем чекбокс и текст */
-}
-
-/* Чекбокс с отступом справа */
-.checkboxContainer input {
-  margin-right: 10px;
-  /* Отступ справа от чекбокса */
-
-}
-
-/* Красивый чекбокс */
-.checkbox-wrapper-18 .round {
-  position: relative;
-}
-
-.checkbox-wrapper-18 .round label {
-  background-color: #fff;
-  border: 1px solid #767676;
-  /* Обновил цвет под общий стиль */
-  border-radius: 50%;
-  cursor: pointer;
-  height: 20px;
-  width: 20px;
-  display: block;
-}
-
-.checkbox-wrapper-18 .round label:after {
-  border: 2px solid #fff;
-  border-top: none;
-  border-right: none;
-  content: "";
-  height: 4px;
-  left: 6px;
-  opacity: 0;
-  position: absolute;
-  top: 7px;
-  transform: rotate(-45deg);
-  width: 8px;
-}
-
-.checkbox-wrapper-18 .round input[type="checkbox"] {
-  visibility: hidden;
-  display: none;
-  opacity: 0;
-}
-
-.checkbox-wrapper-18 .round input[type="checkbox"]:checked+label {
-  background-color: #21a038;
-  /* Цвет под стиль Сбербанка */
-  border-color: #21a038;
-}
-
-.checkbox-wrapper-18 .round input[type="checkbox"]:checked+label:after {
-  opacity: 1;
-}
-
-/* Текст для соглашения */
-.agreementText {
-  margin-left: 10px;
-  color: #767676;
-  font-size: 14px;
-}
-
-.label {
-  color: rgb(90, 90, 90);
-}
-
-.agreement {
-  color: rgb(90, 90, 90);
-  font-size: 12px;
-}
-
-.phoneButtonContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userInfoContainer {
-  display: flex;
-  color: #000;
-  flex-direction: column;
-  align-items: center;
+/* Общий стиль для заголовков */
+.title {
+  font-size: 24px;
   margin-bottom: 20px;
-  /* Отступ снизу */
-}
-
-.logo {
-  border-radius: 50%;
-  /* Круглая форма логотипа */
-  margin-bottom: 10px;
-  /* Отступ снизу */
-}
-
-.transactionList {
-  width: 100%;
-  max-width: 700px;
-  margin: 20px auto;
+  color: #21a038;
   text-align: center;
 }
 
-.titleTran {
-  font-size: 24px;
+.subtitle {
+  font-size: 18px;
+  color: #000;
   margin-bottom: 20px;
-  color: #333;
 }
 
-.scrollArea {
-  max-height: 200px;
-  width: 100%;
-  /* Установить ширину на всю доступную ширину родителя */
-  max-width: 300px;
-  /* Ограничить максимальную ширину */
-  overflow-y: auto;
-  padding: 10px;
-  border: 1px solid #767676;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  margin: 0 auto;
-  /* Центрирование */
-}
-
-.transactionCard {
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease background-color 0.3s ease;
-  ;
-
-}
-
-.transactionCard:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.transactionDetail {
-  font-size: 16px;
-  color: #555;
-  margin: 5px 0;
-}
-
-.transactionDetail strong {
-  color: #21A038;
-}
-
-.applicationCard {
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.selected {
-  background-color: #b4b8b5;
-  /* Цвет выделения */
-  color: #fff;
-  /* Цвет текста для лучшей читаемости */
-}
-
-
-.uploadContainer {
-  width: 100%;
-  /* Полная ширина контейнера */
-  max-width: 300px;
-  /* Максимальная ширина */
+/* Контейнер кнопок */
+.button-container {
   display: flex;
-  /* Используем flexbox для расположения кнопок */
-  justify-content: center;
-  /* Центрируем содержимое по горизонтали */
-  margin: 10px 0;
-  /* Отступ сверху и снизу */
+  flex-direction: column;
+  gap: 15px;
+  /*width: 100%;*/
+  width: 300px;
+}
+
+/* Кнопка общего стиля */
+.button {
+  width: 100%; /* Кнопка растягивается на всю ширину контейнера */
+  background-color: #21a038;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Стиль кнопки при наведении */
+.button:hover {
+  background-color: #1b7a2e;
+  transform: scale(1.05);
+}
+
+/* Белая кнопка */
+.button_white {
+  width: 100%; /* Кнопка растягивается на всю ширину контейнера */
+  background-color: #ffffff;
+  color: #21a038;
+  border: 2px solid #21a038;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Стиль белой кнопки при наведении */
+.button_white:hover {
+  background-color: #e0ffe1;
+  transform: scale(1.05);
+}
+
+/* Кнопка назад  */
+.button_back {
+  width: 100%; /* Кнопка растягивается на всю ширину контейнера */
+  background-color: #ffffff;
+  color: #21a038;
+  border: 2px solid #21a038;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Стиль белой кнопки при наведении */
+.button_back:hover {
+  background-color: #ffe9e0;
+  color: #a04921;
+  border: 2px solid #a04921;
+  
+  transform: scale(1.05);
 }
