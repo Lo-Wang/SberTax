@@ -3,46 +3,61 @@
 import { useState } from 'react';
 import TransactionList from '@/app/components/transactionList';
 import DownloadTemplateButton from '@/app/components/downloadTemplateButton';
-import UploadFileButton from '@/app/components/uploadFileButton';
-import ContinueButton from '@/app/components/continueButton';
 import { useRouter } from 'next/navigation';
 import './styles.css';
 
 export default function ApplicationSubmission() {
-    const router = useRouter();
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [fileName, setFileName] = useState('');
-    const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const router = useRouter();
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
-    const handleFileUpload = (file) => {
-        setSelectedFile(file);
-        setFileName(file.name);
-    };
+  const handleTransactionSelect = (transaction) => {
+    console.log('Выбрана транзакция:', transaction);
+    setSelectedTransaction(transaction);
+  };
 
-    const handleBackClick = () => {
-        router.push('/pages/dashboard');
-    };
+  const handleDownloadTemplate = () => {
+    if (!selectedTransaction) {
+      alert('Пожалуйста, выберите транзакцию, чтобы скачать шаблон.');
+      return;
+    }
 
-    const handleTransactionSelect = (transaction) => {
-        console.log('Выбрана транзакция:', transaction);
-        setSelectedTransaction(transaction);
-    };
+    // Логика выбора шаблона по категории
+    const templateCategory =
+      selectedTransaction.category === 'Медицина'
+        ? '/templates/medical-template.docx'
+        : '/templates/education-template.docx';
 
-    return (
-        <div className="container">
-            <h1 className="title">Выберите транзакцию</h1>
-            <TransactionList onSelectTransaction={handleTransactionSelect} />
-            <div className="button-container">
-                <DownloadTemplateButton />
-                <UploadFileButton onFileUpload={handleFileUpload} />
-                <ContinueButton
-                    selectedTransaction={selectedTransaction}
-                    fileName={fileName}
-                />
-                <button className="button_back" onClick={handleBackClick}>
-                    <strong>Назад</strong>
-                </button>
-            </div>
-        </div>
-    );
+    const link = document.createElement('a');
+    link.href = templateCategory;
+    link.download = templateCategory.split('/').pop();
+    link.click();
+  };
+
+  const handleGoToUpload = () => {
+    if (!selectedTransaction) {
+      alert('Пожалуйста, выберите транзакцию, чтобы продолжить.');
+      return;
+    }
+
+    // Переход на страницу загрузки документов с ID транзакции
+    router.push(`/pages/submit-application/upload-documents/${selectedTransaction.id}`);
+  };
+
+  return (
+    <div className="container">
+      <h1 className="title">Выберите транзакцию</h1>
+      <TransactionList onSelectTransaction={handleTransactionSelect} />
+      <div className="button-container">
+        <button className="button" onClick={handleDownloadTemplate}>
+          Скачать шаблон
+        </button>
+        <button className="button" onClick={handleGoToUpload}>
+          Загрузить документы
+        </button>
+        <button className="button_back" onClick={() => router.push('/pages/dashboard')}>
+          Назад
+        </button>
+      </div>
+    </div>
+  );
 }

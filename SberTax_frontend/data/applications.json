@@ -38,5 +38,56 @@
     "transactionDate": "2024-10-22",
     "mccCode": "4321",
     "description": "Клиника \"Добрый доктор\""
+  },
+  {
+    "id": 1733461534935,
+    "transactionId": 2,
+    "submissionDate": "2024-12-06T05:05:35.129Z",
+    "category": "Образование",
+    "amount": 20000,
+    "status": "Отправлено",
+    "transactionDate": "2024-11-29T12:15:00Z",
+    "mccCode": "5678",
+    "description": "Стоматология \"Зуб\"",
+    "files": {
+      "template": "Пропуск.pdf",
+      "document1": "Leonardo_Kino_XL_A_white_british_shorthair_cat_wearing_futuris_3.jpg",
+      "document2": null,
+      "document3": null
+    }
+  },
+  {
+    "id": 1733461760178,
+    "transactionId": 2,
+    "submissionDate": "2024-12-06T05:09:20.483Z",
+    "category": "Образование",
+    "amount": 20000,
+    "status": "Отправлено",
+    "transactionDate": "2024-11-29T12:15:00Z",
+    "mccCode": "5678",
+    "description": "Стоматология \"Зуб\"",
+    "files": {
+      "template": "Leonardo_Kino_XL_A_white_british_shorthair_cat_wearing_futuris_3.jpg",
+      "document1": "Пропуск.pdf",
+      "document2": null,
+      "document3": null
+    }
+  },
+  {
+    "id": 1733472970951,
+    "transactionId": 2,
+    "submissionDate": "2024-12-06T08:16:11.382Z",
+    "category": "Образование",
+    "amount": 20000,
+    "status": "Отправлено",
+    "transactionDate": "2024-11-29T12:15:00Z",
+    "mccCode": "5678",
+    "description": "Стоматология \"Зуб\"",
+    "files": {
+      "template": "Пропуск.pdf",
+      "document1": "Leonardo_Kino_XL_A_white_british_shorthair_cat_wearing_futuris_3.jpg",
+      "document2": null,
+      "document3": null
+    }
   }
 ]

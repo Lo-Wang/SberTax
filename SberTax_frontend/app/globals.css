@@ -122,3 +122,41 @@ html, body {
   
   transform: scale(1.05);
 }
+
+.button_file {
+  width: 300px; /* Кнопка растягивается на всю ширину контейнера */
+  background-color: #ffffff;
+  color: #757575;
+  border: 2px solid #757575;
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Стиль кнопки при наведении */
+.button_file:hover {
+  background-color: #e0ffe1;
+  transform: scale(1.05);
+}
+
+.button_file_white {
+  width: 300px;  /* Кнопка растягивается на всю ширину контейнера */
+  background-color: #f0f7ef;
+  color: #21a038;
+  border: 2px solid #21a038;
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Стиль белой кнопки при наведении */
+.button_file_white:hover {
+  background-color: #e0ffe1;
+  transform: scale(1.05);
+}
