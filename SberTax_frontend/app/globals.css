@@ -59,7 +59,7 @@ html, body {
 
 /* Кнопка общего стиля */
 .button {
-  width: 300px; /* Кнопка растягивается на всю ширину контейнера */
+  width: 300px; 
   background-color: #21a038;
   color: #ffffff;
   border: none;

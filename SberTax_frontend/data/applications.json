@@ -40,71 +40,20 @@
     "description": "Клиника \"Добрый доктор\""
   },
   {
-    "id": 1733461534935,
-    "transactionId": 2,
-    "submissionDate": "2024-12-06T05:05:35.129Z",
-    "category": "Образование",
-    "amount": 20000,
+    "id": 1733477041712,
+    "transactionId": 1,
+    "submissionDate": "2024-12-06T09:24:02.015Z",
+    "category": "Медицина",
+    "amount": 10000,
     "status": "Отправлено",
-    "transactionDate": "2024-11-29T12:15:00Z",
-    "mccCode": "5678",
+    "transactionDate": "2024-11-30T10:30:00Z",
+    "mccCode": "1234",
     "description": "Стоматология \"Зуб\"",
     "files": {
-      "template": "Пропуск.pdf",
-      "document1": "Leonardo_Kino_XL_A_white_british_shorthair_cat_wearing_futuris_3.jpg",
-      "document2": null,
-      "document3": null
-    }
-  },
-  {
-    "id": 1733461760178,
-    "transactionId": 2,
-    "submissionDate": "2024-12-06T05:09:20.483Z",
-    "category": "Образование",
-    "amount": 20000,
-    "status": "Отправлено",
-    "transactionDate": "2024-11-29T12:15:00Z",
-    "mccCode": "5678",
-    "description": "Стоматология \"Зуб\"",
-    "files": {
-      "template": "Leonardo_Kino_XL_A_white_british_shorthair_cat_wearing_futuris_3.jpg",
-      "document1": "Пропуск.pdf",
-      "document2": null,
-      "document3": null
-    }
-  },
-  {
-    "id": 1733472970951,
-    "transactionId": 2,
-    "submissionDate": "2024-12-06T08:16:11.382Z",
-    "category": "Образование",
-    "amount": 20000,
-    "status": "Отправлено",
-    "transactionDate": "2024-11-29T12:15:00Z",
-    "mccCode": "5678",
-    "description": "Стоматология \"Зуб\"",
-    "files": {
-      "template": "LLMAll_en-US_final_rc.pdf",
-      "document1": "Leonardo_Kino_XL_A_white_british_shorthair_cat_wearing_futuris_3.jpg",
-      "document2": "",
+      "template": "документ 2.pdf",
+      "document1": "документ 2.pdf",
+      "document2": "документ 1.pdf",
       "document3": ""
-    }
-  },
-  {
-    "id": 1733476002949,
-    "transactionId": 2,
-    "submissionDate": "2024-12-06T09:06:43.607Z",
-    "category": "Образование",
-    "amount": 20000,
-    "status": "Отправлено",
-    "transactionDate": "2024-11-29T12:15:00Z",
-    "mccCode": "5678",
-    "description": "Стоматология \"Зуб\"",
-    "files": {
-      "template": "LLMAll_en-US_final_rc.pdf",
-      "document1": "Пропуск.pdf",
-      "document2": null,
-      "document3": null
     }
   }
 ]
