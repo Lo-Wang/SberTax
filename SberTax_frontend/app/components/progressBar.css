@@ -1,0 +1,48 @@
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f2;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Совпадает с шириной кнопок */
+    margin-top: 10px;
+    box-sizing: border-box;
+  }
+  
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .progress-bar {
+    height: 12px;
+    width: 100%;
+    background-color: #d9d9d9;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.5s ease;
+  }
+  
+  .progress-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #767676;
+  }
+  
+  .max-coins {
+    color: #21a038;
+    font-weight: bold;
+  }
+  

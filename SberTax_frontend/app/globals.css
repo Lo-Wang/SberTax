@@ -1,0 +1,162 @@
+html, body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Контейнер страницы */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Высота экрана */
+  width: 100vw; /* Ширина экрана */
+  background-color: #ffffff; /* Фон страницы */
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Общий стиль для кнопок */
+/* .button-green {
+  background-color: #21a038;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+} */
+
+
+/* Общий стиль для заголовков */
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #21a038;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+/* Контейнер кнопок */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /*width: 100%;*/
+  width: 300px;
+}
+
+/* Кнопка общего стиля */
+.button {
+  width: 300px; 
+  background-color: #21a038;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Стиль кнопки при наведении */
+.button:hover {
+  background-color: #1b7a2e;
+  transform: scale(1.05);
+}
+
+/* Белая кнопка */
+.button_white {
+  width: 300px; /* Кнопка растягивается на всю ширину контейнера */
+  background-color: #ffffff;
+  color: #21a038;
+  border: 2px solid #21a038;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Стиль белой кнопки при наведении */
+.button_white:hover {
+  background-color: #e0ffe1;
+  transform: scale(1.05);
+}
+
+/* Кнопка назад  */
+.button_back {
+  width: 300px; /* Кнопка растягивается на всю ширину контейнера */
+  background-color: #ffffff;
+  color: #21a038;
+  border: 2px solid #21a038;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Стиль белой кнопки при наведении */
+.button_back:hover {
+  background-color: #ffe9e0;
+  color: #a04921;
+  border: 2px solid #a04921;
+  
+  transform: scale(1.05);
+}
+
+.button_file {
+  width: 300px; /* Кнопка растягивается на всю ширину контейнера */
+  background-color: #ffffff;
+  color: #757575;
+  border: 2px solid #757575;
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Стиль кнопки при наведении */
+.button_file:hover {
+  background-color: #e0ffe1;
+  transform: scale(1.05);
+}
+
+.button_file_white {
+  width: 300px;  /* Кнопка растягивается на всю ширину контейнера */
+  background-color: #f0f7ef;
+  color: #21a038;
+  border: 2px solid #21a038;
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 12px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Стиль белой кнопки при наведении */
+.button_file_white:hover {
+  background-color: #e0ffe1;
+  transform: scale(1.05);
+}

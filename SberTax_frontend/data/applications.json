@@ -1,0 +1,76 @@
+[
+  {
+    "id": "120324",
+    "submissionDate": "2024-10-27",
+    "category": "Медицина",
+    "amount": 10000,
+    "status": "Принято",
+    "transactionDate": "2024-10-25",
+    "mccCode": "1234",
+    "description": "Стоматология \"Зуб\""
+  },
+  {
+    "id": "120325",
+    "submissionDate": "2024-10-26",
+    "category": "Медицина",
+    "amount": 200,
+    "status": "Отклонено",
+    "transactionDate": "2024-10-24",
+    "mccCode": "5678",
+    "description": "Поликлиника \"Здоровье\""
+  },
+  {
+    "id": "120326",
+    "submissionDate": "2024-10-25",
+    "category": "Медицина",
+    "amount": 300,
+    "status": "Отправлено",
+    "transactionDate": "2024-10-23",
+    "mccCode": "9101",
+    "description": "Аптека \"Лекарь\""
+  },
+  {
+    "id": "120327",
+    "submissionDate": "2024-10-25",
+    "category": "Медицина",
+    "amount": 500,
+    "status": "Редактирование",
+    "transactionDate": "2024-10-22",
+    "mccCode": "4321",
+    "description": "Клиника \"Добрый доктор\""
+  },
+  {
+    "id": 1733477041712,
+    "transactionId": 1,
+    "submissionDate": "2024-12-06T09:24:02.015Z",
+    "category": "Медицина",
+    "amount": 10000,
+    "status": "Отправлено",
+    "transactionDate": "2024-11-30T10:30:00Z",
+    "mccCode": "1234",
+    "description": "Стоматология \"Зуб\"",
+    "files": {
+      "template": "документ 2.pdf",
+      "document1": "документ 2.pdf",
+      "document2": "документ 1.pdf",
+      "document3": ""
+    }
+  },
+  {
+    "id": 1734005454808,
+    "transactionId": 1,
+    "submissionDate": "2024-12-12T12:10:55.472Z",
+    "category": "Медицина",
+    "amount": 15000,
+    "status": "Отправлено",
+    "transactionDate": "2024-12-01T09:30:00Z",
+    "mccCode": "2345",
+    "description": "Клиника \"Здоровье\"",
+    "files": {
+      "template": "AI-image-202412714441689.png",
+      "document1": "Пропуск.pdf",
+      "document2": "",
+      "document3": ""
+    }
+  }
+]

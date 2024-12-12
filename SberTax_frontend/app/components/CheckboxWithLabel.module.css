@@ -1,0 +1,42 @@
+/* Основной контейнер для чекбокса и текста */
+.checkboxContainer {
+  display: flex;
+  align-items: center; /* Выравниваем элементы по вертикали */
+  justify-content: center;
+  gap: 10px; /* Отступ между чекбоксом и текстом */
+  margin-top: 0px; /* Отступ сверху */
+  width: 300px;
+}
+
+/* Стили для чекбокса */
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #767676;
+  border-radius: 4px;
+  cursor: pointer;
+  appearance: none; /* Убираем стандартный стиль чекбокса */
+  background-color: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.checkbox:checked {
+  background-color: #21a038; /* Зеленый цвет для выбранного чекбокса */
+  border-color: #21a038;
+}
+
+.checkbox:checked:after {
+  content: '✔';
+  color: #fff;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+/* Стили для текста */
+.label {
+  color: #767676; /* Серый цвет текста */
+  font-size: 14px; /* Размер текста */
+  cursor: pointer;
+}

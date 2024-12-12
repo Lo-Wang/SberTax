@@ -1,0 +1,91 @@
+/* Контейнер страницы */
+.upload-documents-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Заголовок страницы */
+  /* .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0px;
+    text-align: center;
+  } */
+  
+  /* Блок для каждой загрузки файла */
+  .file-upload-block {
+    margin-bottom: 0px;
+    width: 100%;
+    text-align: left;
+  }
+  
+  /* Заголовок для каждой загрузки */
+  .file-upload-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 0px;
+  }
+  
+  /* Секция загрузки файлов */
+  .file-upload-section {
+    margin-top: -25px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 300px;
+  }
+  
+  /* Кнопки */
+  
+  .button_up {
+    width: 100%;
+    max-width: 300px;
+    background-color: #21a038;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+  }
+
+  .button_upf {
+    width: 100%;
+    max-width: 300px;
+    background-color: #21a038;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+  }
+  
+  .button_upf:hover {
+    background-color: #1b7a2e;
+    transform: scale(1.05);
+  }
+  
+  .button_disabled {
+    background-color: #e0e0e0;
+    color: #767676;
+    cursor: not-allowed;
+  }
+  
