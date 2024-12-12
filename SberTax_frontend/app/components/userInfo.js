@@ -9,7 +9,7 @@ export default function UserInfo() {
         lastName: 'Иванов',
         firstName: 'Иван',
         logo: '/img/logo.png',
-        coins: 12000,
+        coins: 1000,
         maxCoins: 15600,
     };
 

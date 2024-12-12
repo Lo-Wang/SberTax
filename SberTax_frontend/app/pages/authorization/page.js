@@ -1,28 +1,50 @@
 'use client';
 
-import PhoneButton from '@/app/components/phoneButton';
-import SberIDButton from '@/app/components/sberIDButton';
-import CheckboxWithLabel from '@/app/components/CheckboxWithLabel';
-import Image from 'next/image';
-import logo from '@/app/img/logo.png';
+import { useState } from 'react';
+import axiosInstance from '/utils/axiosInstance';
 import './styles.css';
 
 export default function AuthorizationPage() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const response = await axiosInstance.post('/auth/token', {
+        username,
+        password,
+      });
+      console.log('Токен:', response.data.access_token);
+      localStorage.setItem('token', response.data.access_token); // Сохраняем токен
+      alert('Успешный вход!');
+    } catch (err) {
+      console.error('Ошибка авторизации:', err);
+      setError('Неверные учетные данные.');
+    }
+  };
+
   return (
     <div className="container">
-      <h1 className="auth-title">SberTax</h1>
-      <div className="auth-logo">
-        <Image src={logo} alt="SberTax Logo" width={120} height={120} />
+      <h1 className="title">Вход</h1>
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="Имя пользователя"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Пароль"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {error && <p className="error-message">{error}</p>}
+        <button className="button" onClick={handleLogin}>
+          Войти
+        </button>
       </div>
-      <div className="button-container">
-        <SberIDButton />
-        <PhoneButton />
-      </div>
-      <CheckboxWithLabel
-        id="agreementCheckbox"
-        label="Соглашение на обработку данных"
-        onChange={(e) => console.log(e.target.checked)}
-      />
     </div>
   );
 }

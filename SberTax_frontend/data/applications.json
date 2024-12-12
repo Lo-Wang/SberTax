@@ -55,5 +55,22 @@
       "document2": "документ 1.pdf",
       "document3": ""
     }
+  },
+  {
+    "id": 1734005454808,
+    "transactionId": 1,
+    "submissionDate": "2024-12-12T12:10:55.472Z",
+    "category": "Медицина",
+    "amount": 15000,
+    "status": "Отправлено",
+    "transactionDate": "2024-12-01T09:30:00Z",
+    "mccCode": "2345",
+    "description": "Клиника \"Здоровье\"",
+    "files": {
+      "template": "AI-image-202412714441689.png",
+      "document1": "Пропуск.pdf",
+      "document2": "",
+      "document3": ""
+    }
   }
 ]
