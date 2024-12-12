@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:latest
-    container_name: postgres_fast_api
+    container_name: postgre_fast_api_main
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: my_super_password

@@ -1,8 +1,9 @@
+import base64
 from typing import List, Optional
 from fastapi import HTTPException
 from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
-
+import aiohttp
 from app.users.schemas import UserCreate, UserUpdate
 from app.transactions.schemas import TransactionCreate, Transaction
 from app.logs.schemas import LogCreate, Log
@@ -175,3 +176,16 @@ async def delete_user(session: AsyncSession, user_id: int):
     await session.commit()
     logger.info(f"Пользователь с ID {user_id} успешно удален.")
     return user
+
+async def send_request(url, document_create):
+    data = {
+        'document_type': document_create.document_type,
+        'filename': document_create.filename,
+        'upload_date': str(document_create.upload_date),
+        'status': document_create.status,
+        'transaction_id': document_create.transaction_id,
+        'file_data': base64.b64encode(document_create.file_data).decode('utf-8')
+    }
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, json=data) as response:
+            return response

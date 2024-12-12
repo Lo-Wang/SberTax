@@ -1,9 +1,11 @@
+import logging
 from datetime import datetime
 
+import requests
 from fastapi import APIRouter, HTTPException, File, UploadFile
 from starlette.responses import JSONResponse
-
-from app.crud import get_documents, get_document, create_document, create_transaction, create_log, delete_document_and_related
+from app.crud import get_documents, get_document, create_document, create_transaction, create_log, \
+    delete_document_and_related, send_request
 from app.database import async_session_maker
 from app.documents.schemas import DocumentCreate
 from app.logs.schemas import LogCreate
@@ -27,15 +29,7 @@ async def get_document_by_id(document_id: int):
         return document
 
 @router.post("/", summary="Загрузить новый документ")
-async def upload_document(
-    file: UploadFile = File(...),
-    document_type: str = "",
-    status: str = "pending",  # Устанавливаем статус по умолчанию
-    amount: float = 0.0,
-    category: str = "",
-    mcc_code: str = "",
-    user_id: int = 1  # Предполагаем, что вы получаете user_id откуда-то (например, из токена)
-):
+async def upload_document(file: UploadFile = File(...)):
     try:
         # Читаем данные файла
         file_data = await file.read()
@@ -43,9 +37,9 @@ async def upload_document(
         async with async_session_maker() as session:
             # Создаем новую транзакцию с переданными данными
             transaction_create = TransactionCreate(
-                amount=amount,
-                category=category,
-                mcc_code=mcc_code
+                amount=0.0,
+                category="",
+                mcc_code=""
             )
             transaction = await create_transaction(session, transaction_create)
 
@@ -54,7 +48,7 @@ async def upload_document(
 
             # Создаем объект документа с полученным transaction_id
             document_create = DocumentCreate(
-                document_type=document_type,
+                document_type=file.filename.split(".")[-1],
                 filename=file.filename,
                 upload_date=datetime.now(),
                 file_data=file_data,
@@ -70,12 +64,21 @@ async def upload_document(
                 service_name="Document Upload Service",
                 log_level="INFO",
                 message=f"Загружен документ: {document.filename} с ID транзакции: {transaction.id}",
-                user_id=user_id,
+                user_id=1,
                 document_id=document.document_id
             )
             await create_log(session, log_create)  # Создание лога
 
-        return JSONResponse(status_code=201, content={"document_id": document.document_id})
+            # Отправляем запрос на второй сервер для сохранения документа
+            url = "http://localhost:7000/"
+            response = await send_request(url, document_create)
+
+            # Проверяем статус ответа
+            #if response.status == 200:
+            #    text = await response.text()
+            #    return JSONResponse(status_code=201, content={"document_id": document.document_id})
+            #else:
+            #    raise HTTPException(status_code=400, detail="Ошибка сохранения документа на втором сервере")
 
     except Exception as e:
         # Обработка ошибок
