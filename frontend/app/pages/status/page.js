@@ -1,0 +1,50 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import ApplicationCard from '@/app/components/applicationCard';
+import './styles.css';
+
+export default function StatusPage() {
+  const [applications, setApplications] = useState([]);
+
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        const response = await fetch('/api/getApplications');
+        if (!response.ok) {
+          throw new Error('Ошибка при получении заявок');
+        }
+        const data = await response.json();
+
+        const sortedApplications = data.sort(
+          (a, b) => new Date(b.submissionDate) - new Date(a.submissionDate)
+        );
+        setApplications(sortedApplications);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchApplications();
+  }, []);
+
+  return (
+    <div className="container">
+      <h1 className="title">Статусы заявок</h1>
+      <div className="scrollAreaStatus">
+        {applications.length > 0 ? (
+          applications.map((app) => <ApplicationCard key={app.id} application={app} />)
+        ) : (
+          <p>Нет поданных заявок.</p>
+        )}
+      </div>
+      <div className="button-container">
+        <Link href="/pages/dashboard">
+          <button className="button_back">Назад</button>
+        </Link>
+      </div>
+    </div>
+  );
+}
+

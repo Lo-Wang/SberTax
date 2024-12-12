@@ -1,0 +1,29 @@
+/* Контейнер для информации о пользователе */
+.userInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Расстояние между элементами */
+    margin-bottom: 10px; /* Отступ снизу */
+  }
+  
+  /* Круг для логотипа */
+  .circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #cccbcb; /* Серый фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Скрываем части изображения за пределами круга */
+  }
+  
+  /* Имя пользователя */
+  .userName {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333; /* Темный текст */
+    margin: 0; /* Убираем стандартные отступы */
+  }
+  
