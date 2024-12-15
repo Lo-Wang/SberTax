@@ -8,7 +8,10 @@ import './styles.css';
 export default function AuthorizationPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -25,7 +28,6 @@ export default function AuthorizationPage() {
 
       console.log('Токен:', response.data.access_token);
       localStorage.setItem('token', response.data.access_token);
-      //alert('Успешный вход!');
       router.push('/pages/dashboard');
     } catch (err) {
       console.error('Ошибка авторизации:', err);
@@ -33,9 +35,28 @@ export default function AuthorizationPage() {
     }
   };
 
+  const handleRegister = async () => {
+    try {
+      const response = await axiosInstance.post('/registry', {
+        username,
+        password,
+        email,
+      });
+
+      setSuccessMessage('Регистрация успешна! Теперь вы можете войти.');
+      setIsRegistering(false);
+      setUsername('');
+      setPassword('');
+      setEmail('');
+    } catch (err) {
+      console.error('Ошибка регистрации:', err);
+      setError('Не удалось зарегистрироваться. Проверьте данные.');
+    }
+  };
+
   return (
     <div className="container">
-      <h1 className="title">Вход</h1>
+      <h1 className="title">{isRegistering ? 'Регистрация' : 'Вход'}</h1>
       <div className="form-group">
         <input
           type="text"
@@ -43,6 +64,14 @@ export default function AuthorizationPage() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+        {isRegistering && (
+          <input
+            type="email"
+            placeholder="Электронная почта"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        )}
         <input
           type="password"
           placeholder="Пароль"
@@ -50,9 +79,25 @@ export default function AuthorizationPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
         {error && <p className="error-message">{error}</p>}
-        <button className="button" onClick={handleLogin}>
-          Войти
+        {successMessage && <p className="success-message">{successMessage}</p>}
+      </div>
+      <div className='button-container'>
+        <button
+          className="button"
+          onClick={isRegistering ? handleRegister : handleLogin}
+        >
+          {isRegistering ? 'Зарегистрироваться' : 'Войти'}
         </button>
+        <p
+          className="button_white"
+          onClick={() => {
+            setIsRegistering(!isRegistering);
+            setError('');
+            setSuccessMessage('');
+          }}
+        >
+          {isRegistering ? 'Войти' : 'Зарегистрироваться'}
+        </p>
       </div>
     </div>
   );

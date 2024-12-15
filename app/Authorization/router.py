@@ -9,7 +9,7 @@ router = APIRouter(prefix="/auth", tags=["Авторизация"])
 
 
 
-@router.post("/", summary="Создать нового пользователя", response_model=Token)  # Измените response_model на Token
+@router.post("/registry", summary="Создать нового пользователя", response_model=Token)  # Измените response_model на Token
 async def create_new_user(user: UserCreate):
     async with async_session_maker() as session:  # Начинаем сессию
         existing_user = await get_user_by_username(session, user.username)
