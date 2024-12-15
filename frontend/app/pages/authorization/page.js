@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import axiosInstance from '/utils/axiosInstance';
 import './styles.css';
 
@@ -8,16 +9,24 @@ export default function AuthorizationPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const router = useRouter();
 
   const handleLogin = async () => {
     try {
-      const response = await axiosInstance.post('/auth/token', {
-        username,
-        password,
+      const formData = new URLSearchParams();
+      formData.append('username', username);
+      formData.append('password', password);
+
+      const response = await axiosInstance.post('/login', formData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       });
+
       console.log('Токен:', response.data.access_token);
-      localStorage.setItem('token', response.data.access_token); // Сохраняем токен
-      alert('Успешный вход!');
+      localStorage.setItem('token', response.data.access_token);
+      //alert('Успешный вход!');
+      router.push('/pages/dashboard');
     } catch (err) {
       console.error('Ошибка авторизации:', err);
       setError('Неверные учетные данные.');
