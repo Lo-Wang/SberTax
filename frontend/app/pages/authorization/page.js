@@ -72,7 +72,7 @@ export default function AuthorizationPage() {
           onChange={(e) => setUsername(e.target.value)}
         />
         {isRegistering && (
-          <div>
+          <>
             <input
               type="text"
               placeholder="Имя"
@@ -91,7 +91,7 @@ export default function AuthorizationPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-          </div>
+          </>
         )}
         <input
           type="password"
@@ -110,7 +110,7 @@ export default function AuthorizationPage() {
           {isRegistering ? 'Зарегистрироваться' : 'Войти'}
         </button>
         <p
-          className="button_white"
+          className="button_info"
           onClick={() => {
             setIsRegistering(!isRegistering);
             setError('');

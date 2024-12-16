@@ -18,7 +18,21 @@
   font-size: 12px;
 }
 
-.button {
+.button_info {
+  font-size: 16px;
+  /* Размер текста */
+  color: #767676;
+  /* Нейтральный серый цвет */
+  margin: 1px 0px -8px;
+  /* Отступ сверху */
+  text-align: center;
+  /* Центрирование текста */
+  line-height: 1.5;
+  /* Высота строки для лучшей читаемости */
+  cursor: pointer;
+}
+
+/* .button {
   padding: 10px;
   background-color: #21a038;
   color: white;
@@ -30,4 +44,4 @@
 
 .button:hover {
   background-color: #198f2e;
-}
+} */
