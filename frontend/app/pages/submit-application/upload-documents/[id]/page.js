@@ -10,9 +10,6 @@ export default function UploadDocumentsPage({ params }) {
   const { id } = params; // ID заявки из URL
   const [files, setFiles] = useState({
     template: null,
-    document1: null,
-    document2: null,
-    document3: null,
   });
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const router = useRouter();
@@ -63,27 +60,6 @@ export default function UploadDocumentsPage({ params }) {
           <UploadFileButton
             label={files.template ? files.template.name : 'Загрузите файл'}
             onFileUpload={(file) => handleFileUpload('template', file)}
-          />
-        </div>
-        <div className="file-upload-block">
-          <p className="file-upload-title">Документ 1 (обязательно)</p>
-          <UploadFileButton
-            label={files.document1 ? files.document1.name : 'Загрузите файл'}
-            onFileUpload={(file) => handleFileUpload('document1', file)}
-          />
-        </div>
-        <div className="file-upload-block">
-          <p className="file-upload-title">Документ 2</p>
-          <UploadFileButton
-            label={files.document2 ? files.document2.name : 'Загрузите файл'}
-            onFileUpload={(file) => handleFileUpload('document2', file)}
-          />
-        </div>
-        <div className="file-upload-block">
-          <p className="file-upload-title">Документ 3</p>
-          <UploadFileButton
-            label={files.document3 ? files.document3.name : 'Загрузите файл'}
-            onFileUpload={(file) => handleFileUpload('document3', file)}
           />
         </div>
       </div>

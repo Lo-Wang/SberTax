@@ -1,64 +1,45 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import axiosInstance from '/utils/axiosInstance'; // Убедитесь, что путь к axiosInstance правильный
 
 export default function ContinueButton({ selectedTransaction, files }) {
   const router = useRouter();
 
-  // Проверяем, загружены ли все обязательные файлы
-  const isSubmitDisabled = !files.template || !files.document1;
-
   const handleSubmit = async () => {
-    if (isSubmitDisabled) {
-      alert('Пожалуйста, загрузите все обязательные документы.');
-      return;
+    const formData = new FormData();
+
+    // Добавляем данные транзакции в FormData
+    formData.append('amount', selectedTransaction.amount);
+    formData.append('category', selectedTransaction.category);
+    formData.append('mcc_code', selectedTransaction.mcc_code);
+    formData.append('description', selectedTransaction.description);
+
+    // Добавляем файл в FormData, если он существует
+    if (files.template) {
+      formData.append('file', files.template); // Предполагается, что files.template - это объект File
     }
 
-    const applicationData = {
-      id: new Date().getTime(), // Генерация уникального ID
-      transactionId: selectedTransaction.id,
-      submissionDate: new Date().toISOString(),
-      category: selectedTransaction.category,
-      amount: selectedTransaction.amount,
-      status: 'Отправлено',
-      transactionDate: selectedTransaction.date,
-      mccCode: selectedTransaction.mcc_code,
-      description: selectedTransaction.description,
-      files: {
-        template: files.template.name,
-        document1: files.document1.name,
-        document2: files.document2?.name || null,
-        document3: files.document3?.name || null,
-      },
-    };
-
     try {
-      const response = await fetch('/api/saveApplication', {
-        method: 'POST',
+      const response = await axiosInstance.post('/documents/downloads', formData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data', // Убедитесь, что заголовок установлен правильно
         },
-        body: JSON.stringify(applicationData),
       });
 
-      if (!response.ok) {
-        throw new Error('Ошибка при отправке заявки');
-      }
-
-      const data = await response.json();
-      console.log(data.message);
+      console.log(response.data.message); // Предполагается, что ответ содержит поле message
 
       router.push('/pages/submission-confirmation');
     } catch (error) {
       console.error('Ошибка:', error);
+      // Вы можете добавить обработку ошибок, чтобы показать пользователю сообщение об ошибке
     }
   };
 
   return (
     <button
-      className={`button_up ${isSubmitDisabled ? 'button_disabled' : 'button_upf'}`}
+      className="button_up button_upf"
       onClick={handleSubmit}
-      disabled={isSubmitDisabled}
     >
       Отправить заявление
     </button>

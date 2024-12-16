@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 from app.crud import get_user_by_username, verify_password
 from app.database import async_session_maker
-from app.Authorization.schemas import Token, TokenData
+from app.Authorization.schemas import TokenData
 
 # Определяем схему для получения токена
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -22,7 +22,6 @@ async def authenticate_user(username: str, password: str, session: AsyncSession)
         return False  # Пароль неверный
 
     return user  # Возвращаем пользователя, если аутентификация успешна
-
 # Функция для создания токена доступа
 async def create_access_token(data: dict):
     to_encode = data.copy()

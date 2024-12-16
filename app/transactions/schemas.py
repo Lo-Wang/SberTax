@@ -6,6 +6,7 @@ class TransactionBase(BaseModel):
     amount: float
     category: str
     mcc_code: str
+    description: str
 
 class TransactionCreate(TransactionBase):
     pass

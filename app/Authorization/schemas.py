@@ -10,7 +10,12 @@ class Token(BaseModel):
 
 # Схема для данных токена
 class TokenData(BaseModel):
-    username: str
+    access_token: str
+    token_type: str
+    user_id: int
+    first_name: str
+    last_name: str
+    username: str  # Добавьте это поле, если оно необходимо
 
 # Определяем простую схему для входа
 class TokenRequest(BaseModel):

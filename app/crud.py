@@ -1,6 +1,6 @@
-import base64
 from typing import List, Optional
-from fastapi import HTTPException
+
+from fastapi import HTTPException, UploadFile
 from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
 import aiohttp
@@ -64,7 +64,6 @@ async def create_document(db: AsyncSession, document_create: DocumentCreate) -> 
         document_type=document_create.document_type,
         filename=document_create.filename,
         upload_date=document_create.upload_date,
-        file_data=document_create.file_data,
         status=document_create.status,
         transaction_id=document_create.transaction_id
     )
@@ -179,15 +178,16 @@ async def delete_user(session: AsyncSession, user_id: int):
     logger.info(f"Пользователь с ID {user_id} успешно удален.")
     return user
 
-async def send_request(url, document_create):
-    data = {
-        'document_type': document_create.document_type,
-        'filename': document_create.filename,
-        'upload_date': str(document_create.upload_date),
-        'status': document_create.status,
-        'transaction_id': document_create.transaction_id,
-        'file_data': base64.b64encode(document_create.file_data).decode('utf-8')
-    }
+async def send_request(url, amount, category, mcc_code, description, upload_file: UploadFile):
+    form_data = aiohttp.FormData()
+    form_data.add_field('amount', str(amount))  # Преобразуем amount в строку
+    form_data.add_field('category', category)
+    form_data.add_field('mcc_code', mcc_code)
+    form_data.add_field('description', description)  # Добавлено новое поле для описания
+
+    # Добавляем файл в form_data
+    form_data.add_field('file', await upload_file.read(), filename=upload_file.filename, content_type=upload_file.content_type)
+
     async with aiohttp.ClientSession() as session:
-        async with session.post(url, json=data) as response:
-            return response
+        async with session.post(url, data=form_data) as response:
+            return await response.json()

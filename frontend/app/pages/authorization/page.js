@@ -22,7 +22,7 @@ export default function AuthorizationPage() {
       formData.append('username', username);
       formData.append('password', password);
 
-      const response = await axiosInstance.post('/login', formData, {
+      const response = await axiosInstance.post('/auth/login', formData, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -40,7 +40,7 @@ export default function AuthorizationPage() {
 
   const handleRegister = async () => {
     try {
-      const response = await axiosInstance.post('/registry', {
+      const response = await axiosInstance.post('/auth/registry', {
         username,
         password,
         email,

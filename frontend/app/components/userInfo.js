@@ -32,7 +32,7 @@ export default function UserInfo() {
                 return;
             }
             try {
-                const response = await axiosInstance.get(`/users/me?username=${currentUsername}`, {
+                const response = await axiosInstance.get(`/auth/users/me?username=${currentUsername}`, {
                     headers: {
                         'accept': 'application/json' // Устанавливаем заголовок accept
                     }

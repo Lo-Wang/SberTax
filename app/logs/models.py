@@ -15,6 +15,7 @@ class Transaction(Base):
     amount: Mapped[float] = mapped_column(Float)
     category: Mapped[str] = mapped_column(String(50))
     mcc_code: Mapped[str] = mapped_column(String(10))
+    description: Mapped[str] = mapped_column(String(255))  # Новое поле для описания
 
     # Определяем отношение с документами
     documents: Mapped[List["Document"]] = relationship("Document", back_populates="transaction")
@@ -23,7 +24,8 @@ class Transaction(Base):
         return (f"{self.__class__.__name__}(id={self.id}, "
                 f"amount={self.amount}, "
                 f"category={self.category!r}, "
-                f"mcc_code={self.mcc_code!r})")
+                f"mcc_code={self.mcc_code!r}), "
+                f"description={self.description!r})")
 
     def __repr__(self):
         return str(self)
@@ -64,7 +66,6 @@ class Document(Base):
     document_type: Mapped[str] = mapped_column(String(50))
     filename: Mapped[str] = mapped_column(String(255))
     upload_date: Mapped[datetime] = mapped_column(TIMESTAMP)
-    file_data: Mapped[bytes] = mapped_column(LargeBinary)
     status: Mapped[str] = mapped_column(String(20))
     transaction_id: Mapped[int] = mapped_column(ForeignKey("transactions.id"))
 

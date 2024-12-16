@@ -7,7 +7,6 @@ class DocumentBase(BaseModel):
     document_type: str
     filename: str
     upload_date: datetime
-    file_data: bytes
     status: str
     transaction_id: int
 
