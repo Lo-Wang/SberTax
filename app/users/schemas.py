@@ -6,6 +6,8 @@ class UserBase(BaseModel):
     username: constr(min_length=1, max_length=50)  # Ограничение на длину имени пользователя
     email: EmailStr  # Валидация электронной почты
     password: constr(min_length=8)  # Минимальная длина пароля
+    first_name: constr(min_length=1, max_length=50)  # Имя пользователя
+    last_name: constr(min_length=1, max_length=50)  # Фамилия пользователя
 
 # Схема для создания нового пользователя
 class UserCreate(UserBase):
@@ -16,6 +18,8 @@ class UserUpdate(BaseModel):
     username: constr(min_length=1, max_length=50) = None
     email: EmailStr = None
     password: constr(min_length=8) = None
+    first_name: constr(min_length=1, max_length=50) = None
+    last_name: constr(min_length=1, max_length=50) = None
 
 # Схема для отображения пользователя
 class User(UserBase):

@@ -37,7 +37,7 @@ async def upload_document(file: UploadFile = File(...)):
         async with async_session_maker() as session:
             # Создаем новую транзакцию с переданными данными
             transaction_create = TransactionCreate(
-                amount=0.0,
+                amount="",
                 category="",
                 mcc_code=""
             )

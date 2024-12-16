@@ -89,6 +89,8 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(50), unique=True, index=True)
     email: Mapped[str] = mapped_column(String(100), unique=True, index=True)
     password: Mapped[str] = mapped_column(String(255))  # Зашифрованный пароль
+    first_name: Mapped[str] = mapped_column(String(50))  # Имя пользователя
+    last_name: Mapped[str] = mapped_column(String(50))  # Фамилия пользователя
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
 
@@ -99,6 +101,8 @@ class User(Base):
         return (f"{self.__class__.__name__}(user_id={self.user_id}, "
                 f"username={self.username!r}, "
                 f"email={self.email!r}, "
+                f"first_name={self.first_name!r}, "
+                f"last_name={self.last_name!r}, "
                 f"created_at={self.created_at})")
 
     def __repr__(self):

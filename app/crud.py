@@ -133,6 +133,8 @@ async def create_user(session: AsyncSession, user: UserCreate) -> User:
         username=user.username,
         email=user.email,
         password=hashed_password,  # Сохраняем хешированный пароль
+        first_name=user.first_name,
+        last_name=user.last_name,
     )
 
     # Добавляем нового пользователя в сессию и сохраняем в базе данных

@@ -21,7 +21,8 @@ async def create_new_user(user: UserCreate):
         # Создаем токен доступа
         access_token = await create_access_token(data={"sub": new_user.username})
 
-        return Token(access_token=access_token, token_type="bearer", user_id=new_user.user_id)
+        return Token(access_token=access_token, token_type="bearer", user_id=new_user.user_id,first_name=new_user.first_name,
+            last_name=new_user.last_name)
 
 @router.get("/login", summary="Меню входа")
 async def login_menu():
@@ -39,7 +40,8 @@ async def login(username: str = Form(...), password: str = Form(...)):
             raise HTTPException(status_code=400, detail="Неверные учетные данные")
 
         access_token = await create_access_token(data={"sub": user.username})
-        return Token(access_token=access_token, token_type="bearer", user_id=user.user_id)  # Включаем user_id
+        return Token(access_token=access_token, token_type="bearer", user_id=user.user_id, first_name=user.first_name,
+            last_name=user.last_name)
 
 @router.get("/users/me", summary="Получить информацию о текущем пользователе", response_model=User)
 async def read_users_me(username: str):  # Принимаем имя пользователя как параметр
