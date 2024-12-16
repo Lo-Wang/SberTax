@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ApplicationCard from '@/app/components/applicationCard';
+import axiosInstance from '/utils/axiosInstance';
 import './styles.css';
 
 export default function StatusPage() {
@@ -11,18 +12,18 @@ export default function StatusPage() {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await fetch('/api/getApplications');
-        if (!response.ok) {
-          throw new Error('Ошибка при получении заявок');
-        }
-        const data = await response.json();
+        const response = await axiosInstance.get('/transactions/?skip=0&limit=10', {
+          headers: {
+            accept: 'application/json',
+          },
+        });
 
-        const sortedApplications = data.sort(
-          (a, b) => new Date(b.submissionDate) - new Date(a.submissionDate)
+        const sortedApplications = response.data.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at) // Сортируем по created_at
         );
         setApplications(sortedApplications);
       } catch (error) {
-        console.error(error);
+        console.error('Ошибка при получении заявок:', error);
       }
     };
 
@@ -47,4 +48,3 @@ export default function StatusPage() {
     </div>
   );
 }
-
