@@ -9,7 +9,7 @@ import axiosInstance from '/utils/axiosInstance'; // Импортируйте в
 export default function UserInfo() {
     const [userData, setUser ] = useState({
         logo: '/img/logo.png', // Фиксированное значение
-        coins: 1000,          // Фиксированное значение
+        coins: '',          // Фиксированное значение
         maxCoins: 15600,      // Фиксированное значение
         first_name: '',       // Поля, которые будут обновлены из API
         last_name: '',
@@ -32,15 +32,18 @@ export default function UserInfo() {
                 return;
             }
             try {
-                const response = await axiosInstance.get(`/auth/users/me?username=${currentUsername}`, {
+                const token = localStorage.getItem('token'); // Получаем токен из localStorage
+                const response = await axiosInstance.get('/auth/users/me', {
                     headers: {
-                        'accept': 'application/json' // Устанавливаем заголовок accept
+                        'Authorization': `Bearer ${token}`, // Передаем токен в заголовке
+                        'accept': 'application /json' // Устанавливаем заголовок accept
                     }
-                }); // Запрос к вашему эндпоинту с username
+                });
                 setUser (prevData => ({
                     ...prevData,
                     first_name: response.data.first_name,
                     last_name: response.data.last_name,
+                    coins: response.data.coins,
                 }));
             } catch (err) {
                 console.error('Ошибка при получении данных пользователя:', err);

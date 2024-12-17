@@ -16,6 +16,7 @@ class Transaction(Base):
     category: Mapped[str] = mapped_column(String(50))
     mcc_code: Mapped[str] = mapped_column(String(10))
     description: Mapped[str] = mapped_column(String(255))  # Новое поле для описания
+    user_id: Mapped[int] = mapped_column(BIGINT, ForeignKey("users.user_id"))  # Добавлено поле user_id
 
     # Определяем отношение с документами
     documents: Mapped[List["Document"]] = relationship("Document", back_populates="transaction")
@@ -25,7 +26,8 @@ class Transaction(Base):
                 f"amount={self.amount}, "
                 f"category={self.category!r}, "
                 f"mcc_code={self.mcc_code!r}), "
-                f"description={self.description!r})")
+                f"description={self.description!r}, "
+                f"user_id={self.user_id})")  # Добавлено user_id
 
     def __repr__(self):
         return str(self)
@@ -92,6 +94,7 @@ class User(Base):
     password: Mapped[str] = mapped_column(String(255))  # Зашифрованный пароль
     first_name: Mapped[str] = mapped_column(String(50))  # Имя пользователя
     last_name: Mapped[str] = mapped_column(String(50))  # Фамилия пользователя
+    coins: Mapped[float] = mapped_column(Float, default=0)  # Поле для хранения результата
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
 
@@ -104,6 +107,7 @@ class User(Base):
                 f"email={self.email!r}, "
                 f"first_name={self.first_name!r}, "
                 f"last_name={self.last_name!r}, "
+                f"coins={self.coins}, "
                 f"created_at={self.created_at})")
 
     def __repr__(self):

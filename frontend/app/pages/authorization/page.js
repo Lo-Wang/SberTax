@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import axiosInstance from '/utils/axiosInstance';
 import './styles.css';
 
@@ -9,12 +10,21 @@ export default function AuthorizationPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState(''); // Добавлено поле для имени
-  const [lastName, setLastName] = useState(''); // Добавлено поле для фамилии
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const router = useRouter();
+
+  // Проверка на наличие токена при загрузке компонента
+  useEffect(() => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+    if (token) {
+      // Если токен существует, перенаправляем на страницу Dashboard
+      router.push('/pages/dashboard');
+    }
+  }, [router]);
 
   const handleLogin = async () => {
     try {
@@ -29,8 +39,17 @@ export default function AuthorizationPage() {
       });
 
       console.log('Токен:', response.data.access_token);
+
+      // Сохраняем данные в куки
+      document.cookie = `token=${response.data.access_token}; path=/`; // Устанавливаем токен в куки
+
+      // Сохраняем данные в localStorage
       localStorage.setItem('token', response.data.access_token);
-      localStorage.setItem('username', username); // Сохраняем username в localStorage
+      localStorage.setItem('user_id', response.data.user_id); // Сохраняем user_id
+      localStorage.setItem('username', username); // Сохраняем username
+      localStorage.setItem('first_name', response.data.first_name); // Сохраняем имя
+      localStorage.setItem('last_name', response.data.last_name); // Сохраняем фамилию
+
       router.push('/pages/dashboard');
     } catch (err) {
       console.error('Ошибка авторизации:', err);
@@ -46,6 +65,7 @@ export default function AuthorizationPage() {
         email,
         first_name: firstName,
         last_name: lastName,
+        coins: 0, // Устанавливаем coins в 0 по умолчанию
       });
 
       setSuccessMessage('Регистрация успешна! Теперь вы можете войти.');
@@ -53,8 +73,8 @@ export default function AuthorizationPage() {
       setUsername('');
       setPassword('');
       setEmail('');
-      setFirstName(''); // Очистка поля имени
-      setLastName(''); // Очистка поля фамилии
+      setFirstName('');
+      setLastName('');
     } catch (err) {
       console.error('Ошибка регистрации:', err);
       setError('Не удалось зарегистрироваться. Проверьте данные.');
@@ -103,8 +123,7 @@ export default function AuthorizationPage() {
         {successMessage && <p className="success-message">{successMessage}</p>}
       </div>
       <div className='button-container'>
-        <button
-          className="button"
+        <button className="button"
           onClick={isRegistering ? handleRegister : handleLogin}
         >
           {isRegistering ? 'Зарегистрироваться' : 'Войти'}
@@ -117,7 +136,7 @@ export default function AuthorizationPage() {
             setSuccessMessage('');
           }}
         >
-          {isRegistering ? 'Войти' : 'Зарегистрироваться'}
+          {isRegistering ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Зарегистрироваться'}
         </p>
       </div>
     </div>

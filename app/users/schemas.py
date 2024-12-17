@@ -8,6 +8,7 @@ class UserBase(BaseModel):
     password: constr(min_length=8)  # Минимальная длина пароля
     first_name: constr(min_length=1, max_length=50)  # Имя пользователя
     last_name: constr(min_length=1, max_length=50)  # Фамилия пользователя
+    coins: float = 0  # Поле для хранения результата, по умолчанию 0
 
 # Схема для создания нового пользователя
 class UserCreate(UserBase):
@@ -20,6 +21,7 @@ class UserUpdate(BaseModel):
     password: constr(min_length=8) = None
     first_name: constr(min_length=1, max_length=50) = None
     last_name: constr(min_length=1, max_length=50) = None
+    coins: float = None  # Добавьте coins для обновления
 
 # Схема для отображения пользователя
 class User(UserBase):

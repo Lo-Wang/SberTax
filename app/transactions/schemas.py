@@ -7,6 +7,7 @@ class TransactionBase(BaseModel):
     category: str
     mcc_code: str
     description: str
+    user_id: Optional[int]  # Добавлено поле user_id
 
 class TransactionCreate(TransactionBase):
     pass

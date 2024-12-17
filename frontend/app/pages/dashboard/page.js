@@ -19,8 +19,21 @@ export default function Dashboard() {
     router.push('/pages/submit-application'); // Переход к странице подачи заявки
   };
 
+  const clearUserData = () => {
+    // Удаляем токен и другую информацию из localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('username');
+    localStorage.removeItem('first_name');
+    localStorage.removeItem('last_name');
+
+    // Удаляем токен из куки
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; // Удаляем токен из куки
+  };
+
   const handleBackClick = () => {
-    router.push('/pages/authorization'); // Возврат к авторизации
+    clearUserData(); // Вызываем функцию для очистки данных
+    router.replace('/pages/authorization'); // Используем replace вместо push
   };
 
   return (

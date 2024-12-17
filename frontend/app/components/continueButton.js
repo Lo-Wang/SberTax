@@ -15,6 +15,12 @@ export default function ContinueButton({ selectedTransaction, files }) {
     formData.append('mcc_code', selectedTransaction.mcc_code);
     formData.append('description', selectedTransaction.description);
 
+    // Добавляем user_id из localStorage
+    const userId = localStorage.getItem('user_id');
+    if (userId) {
+      formData.append('user_id', userId); // Добавляем user_id в FormData
+    }
+
     // Добавляем файл в FormData, если он существует
     if (files.template) {
       formData.append('file', files.template); // Предполагается, что files.template - это объект File

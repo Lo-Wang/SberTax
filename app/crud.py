@@ -22,10 +22,13 @@ async def get_transaction(db: AsyncSession, transaction_id: int) -> Optional[Tra
     result = await db.execute(select(TransactionModel).where(TransactionModel.id == transaction_id))
     return result.scalar_one_or_none()
 
-async def get_transactions(db: AsyncSession, skip: int = 0, limit: int = 10) -> List[Transaction]:
-    result = await db.execute(select(TransactionModel).offset(skip).limit(limit))
-    transactions = result.scalars().all()
-    return list(transactions)
+async def get_transactions(db: AsyncSession, user_id: int) -> List[Transaction]:
+    # Выполняем запрос с фильтрацией по user_id
+    result = await db.execute(
+        select(TransactionModel).filter(TransactionModel.user_id == user_id)
+    )
+    transactions = result.scalars().all()  # Получаем все транзакции
+    return list(transactions)  # Возвращаем список транзакций
 
 async def create_transaction(db: AsyncSession, transaction_create: TransactionCreate) -> TransactionModel:
     transaction = TransactionModel(**transaction_create.dict())

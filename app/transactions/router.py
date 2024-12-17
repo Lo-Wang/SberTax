@@ -1,14 +1,23 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Header
+
+from app.Authorization.Auth import get_current_user
 from app.database import async_session_maker
 from app.crud import get_transaction, get_transactions
 
 router = APIRouter(prefix='/transactions', tags=['Работа с транзакциями'])
 
-@router.get("/", summary="Получить список транзакций")
-async def get_all_transactions(skip: int = 0, limit: int = 10):
+@router.get("/my", summary="Мои заявки")
+async def get_transaction_me(authorization: str = Header(None)):
+    if authorization is None:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    token = authorization.split(" ")[1]  # Получаем токен из "Bearer <token>"
+
     async with async_session_maker() as session:
-        transaction = await get_transactions(session, skip=skip, limit=limit)
-        return transaction
+        user = await get_current_user(token, session)
+        transactions = await get_transactions(session, user_id=user.user_id)
+
+        return transactions  # Возвращаем все транзакции для пользователя
 
 @router.get("/{transaction_id}", summary="Получить транзакцию по ID")
 async def get_transaction_by_id(transaction_id: int):

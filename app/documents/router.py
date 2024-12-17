@@ -3,12 +3,13 @@ from datetime import datetime
 from fileinput import filename
 
 import requests
-from fastapi import APIRouter, HTTPException, File, UploadFile, Body, Form
-from starlette.responses import JSONResponse
+from fastapi import APIRouter, HTTPException, File, UploadFile, Body, Form, Depends
+
 from app.crud import get_documents, get_document, create_document, create_transaction, create_log, \
     delete_document_and_related, send_request
 from app.database import async_session_maker
 from app.documents.schemas import DocumentCreate
+from app.logs.models import User
 from app.logs.schemas import LogCreate
 from app.transactions.schemas import TransactionCreate
 
@@ -31,6 +32,7 @@ async def get_document_by_id(document_id: int):
 
 @router.post("/downloads", summary="Загрузить новый документ")
 async def upload_document(
+    user_id: int = Form(...),  # Получаем user_id из FormData
     amount: float = Form(...),
     category: str = Form(...),
     mcc_code: str = Form(...),
@@ -44,9 +46,20 @@ async def upload_document(
                 amount=amount,
                 category=category,
                 mcc_code=mcc_code,
-                description=description
+                description=description,
+                user_id=user_id
             )
             transaction = await create_transaction(session, transaction_data)
+
+            # Вычисляем результат
+            result = amount * 0.13  # Ваше вычисление
+            # Обновляем поле coins у пользователя
+            user = await session.get(User, user_id)  # Получаем пользователя по user_id
+
+            if user:
+                user.coins += result  # Обновляем значение coins
+                session.add(user)  # Добавляем изменения в сессию
+                await session.commit()  # Сохраняем изменения в базе данных
 
             # Устанавливаем статус на "success" после успешной загрузки файла
             status = "success"
@@ -68,7 +81,7 @@ async def upload_document(
                 service_name="Document Upload Service",
                 log_level="INFO",
                 message=f"Загружен документ: {document.filename} с ID транзакции: {transaction.id}",
-                user_id=1,
+                user_id=user_id,
                 document_id=document.document_id
             )
             await create_log(session, log_create)  # Создание лога

@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -12,9 +12,13 @@ export default function StatusPage() {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axiosInstance.get('/transactions/?skip=0&limit=10', {
+        const userId = localStorage.getItem('user_id'); // Получаем user_id из localStorage
+        const token = localStorage.getItem('token'); // Получаем токен из localStorage (или другого места)
+
+        const response = await axiosInstance.get(`/transactions/my?user_id=${userId}`, {
           headers: {
             accept: 'application/json',
+            Authorization: `Bearer ${token}`, // Добавляем заголовок Authorization
           },
         });
 
