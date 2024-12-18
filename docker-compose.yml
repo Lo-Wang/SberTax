@@ -1,5 +1,11 @@
+version: '3.8'
+
+networks:
+  my_network:
+    external: true # Используем существующую сеть
+
 services:
-  postgres:
+  postgres_fast_api:
     image: postgres:latest
     container_name: postgre_fast_api_main
     environment:
@@ -10,7 +16,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data/pgdata
+      - pgdata_fast_api:/var/lib/postgresql/data/pgdata
     deploy:
       resources:
         limits:
@@ -28,14 +34,43 @@ services:
                -c wal_buffers=16MB
                -c default_statistics_target=100
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres_user -d postgres_db" ]
-      interval: 30s
+      test: [ "CMD-SHELL", "pg_isready -U admin -d fast_api" ]
+      interval: 10s
       timeout: 10s
       retries: 5
     restart: unless-stopped
     tty: true
     stdin_open: true
+    networks:
+      - my_network # Подключаем к сети
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Указываем путь к Dockerfile
+    command: >
+      sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres_fast_api:
+        condition: service_healthy  # Убедитесь, что PostgreSQL готов
+    environment:
+      DATABASE_URL: postgresql://admin:my_super_password@postgre_fast_api_main:5432/fast_api
+    networks:
+      - my_network # Подключаем к сети
+
+  frontend:
+    build:
+      context: ./frontend  # Указываем путь к папке с Dockerfile
+      dockerfile: Dockerfile  # Указываем имя Dockerfile, если оно отличается
+    ports:
+      - "3000:3000"  # Укажите порт, на котором ваше приложение будет доступно
+    depends_on:
+      - backend  # Убедитесь, что бэкенд запущен перед фронтендом
+    networks:
+      - my_network # Подключаем к сети
 
 volumes:
-  pgdata:
+  pgdata_fast_api:
     driver: local

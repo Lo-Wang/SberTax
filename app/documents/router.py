@@ -87,7 +87,7 @@ async def upload_document(
             await create_log(session, log_create)  # Создание лога
 
             # Отправляем запрос на второй сервер для сохранения документа
-            url = "http://localhost:7000/"
+            url = "http://fake_fns:7000/"
             response = await send_request(url, amount, category, mcc_code, description, file)
 
             return response  # Возвращаем ответ от второго сервера

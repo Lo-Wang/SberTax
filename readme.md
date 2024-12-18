@@ -1,5 +1,18 @@
 # SberTax
 
+### Запуск контейнеров если linux
+```bash
+chmod +x run.sh
+./run.sh
+```
+### Запуск контейнеров если Windows
+```bash
+docker-compose up --build -d
+cd fake_fns
+docker-compose up --build -d
+```
+
+
 ## Архитектура репозитория
 
 ### Основная модель веток:
