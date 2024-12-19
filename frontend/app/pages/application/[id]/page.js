@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import axiosInstance from '/utils/axiosInstance';
 import './styles.css';
 
 export default function ApplicationDetailsPage({ params }) {
@@ -13,13 +14,14 @@ export default function ApplicationDetailsPage({ params }) {
   useEffect(() => {
     const fetchApplication = async () => {
       try {
-        const response = await fetch('/api/getApplications');
-        if (!response.ok) {
-          throw new Error('Ошибка при загрузке заявки');
-        }
-        const data = await response.json();
-        const app = data.find((item) => item.id.toString() === id);
-        setApplication(app || null);
+        const response = await axiosInstance.get(`/transactions/${id}`, {
+          headers: {
+            accept: 'application/json',
+          },
+        });
+
+        // Устанавливаем данные о заявке в состояние
+        setApplication(response.data);
       } catch (error) {
         console.error('Ошибка загрузки данных:', error);
       }

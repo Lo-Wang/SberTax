@@ -6,6 +6,10 @@ import axiosInstance from '/utils/axiosInstance'; // Убедитесь, что 
 export default function ContinueButton({ selectedTransaction, files }) {
   const router = useRouter();
 
+  // Проверка на наличие загруженных файлов
+  const isDisabled = !files.template || !files.requisites;
+
+
   const handleSubmit = async () => {
     const formData = new FormData();
 
@@ -44,8 +48,9 @@ export default function ContinueButton({ selectedTransaction, files }) {
 
   return (
     <button
-      className="button_up button_upf"
+      className={`button_up ${isDisabled ? 'button_disabled' : 'button_upf'}`}
       onClick={handleSubmit}
+      disabled={isDisabled}
     >
       Отправить заявление
     </button>
