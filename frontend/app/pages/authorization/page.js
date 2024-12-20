@@ -120,6 +120,7 @@ export default function AuthorizationPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
         {error && <p className="error-message">{error}</p>}
+        {password && <p className="password-info">Пароль должен содержать минимум 8 символов.</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
       </div>
       <div className='button-container'>

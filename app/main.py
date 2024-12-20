@@ -10,6 +10,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:3000",  # React приложение работает на этом порту
+    "http://94.51.125.211:3000",  # Внешний доступ (замените на ваш IP)
 ]
 
 app.add_middleware(
